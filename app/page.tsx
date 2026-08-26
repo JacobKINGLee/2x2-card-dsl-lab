@@ -827,6 +827,67 @@ export default function Home() {
             onChange={(event) => selectBenchmarkCase(Number(event.target.value))}
             aria-label="选择测试样本"
           />
+          <div className="case-render-row">
+            <div
+              className={`case-render-stage ${benchmarkCase.result.status === "solved" ? "is-solved" : "is-rejected"}`}
+            >
+              <span className="case-render-label">RENDERER PREVIEW · 160×160vp</span>
+              <div className="case-card-shell">
+                <CoordinateCard
+                  layout={benchmarkCase.result}
+                  showGuides={true}
+                  onAction={handleAction}
+                />
+                {benchmarkCase.result.status === "unsatisfied" && (
+                  <span className="rejected-layout-badge">REJECTED CANDIDATE</span>
+                )}
+              </div>
+            </div>
+            <div className="case-render-report">
+              <div className="case-report-stats">
+                <div>
+                  <span>STATUS</span>
+                  <strong>{benchmarkCase.result.status.toUpperCase()}</strong>
+                </div>
+                <div>
+                  <span>SCORE</span>
+                  <strong>{benchmarkCase.result.score}<small>/100</small></strong>
+                </div>
+                <div>
+                  <span>NODES</span>
+                  <strong>{benchmarkCase.result.nodes.length}</strong>
+                </div>
+                <div>
+                  <span>CANDIDATES</span>
+                  <strong>{benchmarkCase.result.candidateCount}</strong>
+                </div>
+              </div>
+              <div className="case-degradation-summary">
+                <span>
+                  COMPRESSED · {benchmarkCase.result.compressedIds.length
+                    ? benchmarkCase.result.compressedIds.join(" / ")
+                    : "NONE"}
+                </span>
+                <span>
+                  DROPPED · {benchmarkCase.result.droppedIds.length
+                    ? benchmarkCase.result.droppedIds.join(" / ")
+                    : "NONE"}
+                </span>
+              </div>
+              <div className="case-violation-summary">
+                <span>UX CHECK RESULT</span>
+                {benchmarkCase.result.violations.length ? (
+                  <ul>
+                    {benchmarkCase.result.violations.map((violation) => (
+                      <li key={violation}>{violation}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>所有硬约束均通过，这张卡片可以交给 Renderer 使用。</p>
+                )}
+              </div>
+            </div>
+          </div>
           <div className="case-code-grid">
             <div>
               <div className="case-code-label">
