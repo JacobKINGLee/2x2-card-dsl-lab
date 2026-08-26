@@ -1,14 +1,17 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
-  type CardElement,
   type ElementDSL,
+  type LayoutNode,
   type LayoutResult,
+  createCanvasTextMeasurer,
+  estimatedTextMeasurer,
   parseElementDSL,
   solveLayout,
 } from "./layout-engine";
+import { runBenchmark } from "./layout-benchmark";
 
 type Preset = {
   name: string;
@@ -21,7 +24,7 @@ const presets: Preset[] = [
     name: "自动求解",
     description: "引擎比较左右锚点",
     dsl: {
-      version: "2.0",
+      version: "3.0",
       type: "adaptive-card",
       elements: [
         {
@@ -69,7 +72,7 @@ const presets: Preset[] = [
     name: "左下操作",
     description: "语义偏好指定左下",
     dsl: {
-      version: "2.0",
+      version: "3.0",
       type: "adaptive-card",
       elements: [
         {
@@ -106,7 +109,7 @@ const presets: Preset[] = [
     name: "胶囊操作",
     description: "操作区占据底部通栏",
     dsl: {
-      version: "2.0",
+      version: "3.0",
       type: "adaptive-card",
       elements: [
         {
@@ -147,7 +150,7 @@ const presets: Preset[] = [
     name: "并行指标",
     description: "同类元素自动等分",
     dsl: {
-      version: "2.0",
+      version: "3.0",
       type: "adaptive-card",
       elements: [
         {
@@ -164,6 +167,73 @@ const presets: Preset[] = [
           value: "76%",
           detail: "电量",
         },
+        {
+          id: "case",
+          type: "metric",
+          label: "充电盒",
+          value: "64%",
+          detail: "电量",
+        },
+        {
+          id: "signal",
+          type: "metric",
+          label: "连接",
+          value: "稳定",
+          detail: "状态",
+        },
+      ],
+    },
+  },
+  {
+    name: "优先级降级",
+    description: "空间不足时压缩或舍弃",
+    dsl: {
+      version: "3.0",
+      type: "adaptive-card",
+      elements: [
+        {
+          id: "title",
+          type: "text",
+          role: "title",
+          text: "研究计划",
+          priority: 90,
+        },
+        {
+          id: "date",
+          type: "text",
+          role: "caption",
+          text: "今天 14:30",
+          priority: 35,
+          optional: true,
+        },
+        {
+          id: "primary",
+          type: "text",
+          role: "body",
+          text: "完成生成式界面约束布局引擎的阶段评审",
+          supporting: "核心任务 · 会议室 A",
+          maxLines: 3,
+          priority: 96,
+        },
+        {
+          id: "secondary",
+          type: "text",
+          role: "body",
+          text: "整理随机测试数据与失败案例",
+          supporting: "低优先级补充信息",
+          maxLines: 2,
+          priority: 20,
+          optional: true,
+        },
+        {
+          id: "complete",
+          type: "iconButton",
+          icon: "✓",
+          label: "完成任务",
+          event: "completeResearchTask",
+          placement: "auto",
+          priority: 100,
+        },
       ],
     },
   },
@@ -171,7 +241,7 @@ const presets: Preset[] = [
     name: "图片内容",
     description: "填充最大可用矩形",
     dsl: {
-      version: "2.0",
+      version: "3.0",
       type: "adaptive-card",
       elements: [
         {
@@ -192,15 +262,20 @@ const presets: Preset[] = [
 ];
 
 function renderElement(
-  element: CardElement,
+  node: LayoutNode,
   onAction: (event: string) => void,
 ) {
+  const element = node.element;
   switch (element.type) {
     case "text":
       return (
-        <div className={`render-text role-${element.role}`}>
-          <span>{element.text}</span>
-          {element.supporting && <small>{element.supporting}</small>}
+        <div
+          className={`render-text role-${element.role} is-${node.presentation} ${node.truncated ? "is-truncated" : ""}`}
+        >
+          <span style={{ WebkitLineClamp: node.lineCount }}>{element.text}</span>
+          {element.supporting && node.presentation === "full" && (
+            <small>{element.supporting}</small>
+          )}
         </div>
       );
     case "appIcon":
@@ -277,7 +352,7 @@ function CoordinateCard({
             style={style}
             key={node.id}
           >
-            {renderElement(node.element, onAction)}
+            {renderElement(node, onAction)}
           </div>
         );
       })}
@@ -289,11 +364,14 @@ function CoordinateTable({ layout }: { layout: LayoutResult }) {
   return (
     <div className="coordinate-table">
       <div className="coordinate-row coordinate-head">
-        <span>ELEMENT</span><span>X</span><span>Y</span><span>W</span><span>H</span>
+        <span>ELEMENT</span><span>MODE</span><span>X</span><span>Y</span><span>W</span><span>H</span>
       </div>
       {layout.nodes.map((node) => (
         <div className="coordinate-row" key={node.id}>
           <strong>{node.id}</strong>
+          <span className={`mode-${node.presentation}`}>
+            {node.truncated ? "TRUNC" : node.presentation.toUpperCase()}
+          </span>
           <span>{node.x}</span>
           <span>{node.y}</span>
           <span>{node.width}</span>
@@ -311,10 +389,28 @@ export default function Home() {
   );
   const [showGuides, setShowGuides] = useState(true);
   const [toast, setToast] = useState("");
+  const [fontReady, setFontReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    const fontPromise = document.fonts?.ready ?? Promise.resolve();
+    void fontPromise.then(() => {
+      if (!cancelled) setFontReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const textMeasurer = useMemo(
+    () => (fontReady ? createCanvasTextMeasurer() : estimatedTextMeasurer),
+    [fontReady],
+  );
+  const benchmark = useMemo(() => runBenchmark(250, 20260826), []);
   const parsed = useMemo(() => parseElementDSL(source), [source]);
   const layout = useMemo(
-    () => (parsed.data ? solveLayout(parsed.data) : null),
-    [parsed.data],
+    () => (parsed.data ? solveLayout(parsed.data, textMeasurer) : null),
+    [parsed.data, textMeasurer],
   );
   const errors = [
     ...parsed.errors,
@@ -328,12 +424,17 @@ export default function Home() {
       {
         card: layout.card,
         score: layout.score,
-        nodes: layout.nodes.map(({ id, x, y, width, height }) => ({
+        measurement: layout.measurement,
+        compressedIds: layout.compressedIds,
+        droppedIds: layout.droppedIds,
+        nodes: layout.nodes.map(({ id, x, y, width, height, presentation, truncated }) => ({
           id,
           x,
           y,
           width,
           height,
+          presentation,
+          truncated,
         })),
       },
       null,
@@ -383,7 +484,7 @@ export default function Home() {
         </div>
         <div className="topbar-meta">
           <span>2×2 CARD</span>
-          <span className="version-badge">LAYOUT ENGINE · V0.2</span>
+          <span className="version-badge">LAYOUT ENGINE · V0.3</span>
         </div>
       </nav>
 
@@ -394,8 +495,8 @@ export default function Home() {
         </div>
         <div className="intro-side">
           <p>
-            DSL只描述元素、语义和操作偏好。布局引擎枚举候选位置，
-            过滤越界与重叠结果，再输出可直接渲染的坐标 Layout IR。
+            DSL只描述元素、语义、优先级和操作偏好。布局引擎测量真实文字，
+            枚举矩形与降级方案，再输出可直接渲染的坐标 Layout IR。
           </p>
           <div className="pipeline" aria-label="生成流程">
             <span>ELEMENT DSL</span><i>→</i><span>SOLVER</span><i>→</i><span>LAYOUT IR</span>
@@ -523,7 +624,32 @@ export default function Home() {
                     <small>/{layout.checks.length}</small>
                   </strong>
                 </div>
+                <div>
+                  <span>TEXT MEASURE</span>
+                  <strong className="measurement-value">
+                    {layout.measurement.toUpperCase()}
+                  </strong>
+                </div>
               </div>
+
+              <section className="degradation-section">
+                <div className="section-caption">
+                  <span>PRIORITY DEGRADATION</span>
+                  <span>优先保留高 priority 元素</span>
+                </div>
+                <div className="degradation-row">
+                  <span className={layout.compressedIds.length ? "is-used" : ""}>
+                    COMPRESSED · {layout.compressedIds.length
+                      ? layout.compressedIds.join(" / ")
+                      : "NONE"}
+                  </span>
+                  <span className={layout.droppedIds.length ? "is-used dropped" : ""}>
+                    DROPPED · {layout.droppedIds.length
+                      ? layout.droppedIds.join(" / ")
+                      : "NONE"}
+                  </span>
+                </div>
+              </section>
 
               <section className="constraint-section">
                 <div className="section-caption">
@@ -565,6 +691,58 @@ export default function Home() {
         </aside>
       </section>
 
+      <section className="benchmark-panel" aria-label="随机组合压力测试结果">
+        <div className="benchmark-heading">
+          <div>
+            <span className="step-label">03 / AUTOMATED EVALUATION</span>
+            <h2>随机组合压力测试</h2>
+          </div>
+          <p>
+            固定随机种子生成 {benchmark.total} 组文本、图片与 1–4 指标卡片，
+            自动统计求解成功率、降级使用率和 UX 违规率。
+          </p>
+        </div>
+        <div className="benchmark-grid">
+          <div className="benchmark-primary">
+            <span>SOLVE RATE</span>
+            <strong>{benchmark.successRate}<small>%</small></strong>
+            <div className="benchmark-track" aria-label={`成功率${benchmark.successRate}%`}>
+              <i style={{ width: `${benchmark.successRate}%` }} />
+            </div>
+            <p>{benchmark.solved} / {benchmark.total} 组通过全部硬约束</p>
+          </div>
+          <div className="benchmark-stat">
+            <span>AVG SCORE</span>
+            <strong>{benchmark.averageScore}<small>/100</small></strong>
+          </div>
+          <div className="benchmark-stat">
+            <span>AVG CANDIDATES</span>
+            <strong>{benchmark.averageCandidates}</strong>
+          </div>
+          <div className="benchmark-stat">
+            <span>COMPRESSED</span>
+            <strong>{benchmark.compressedLayouts}<small> 组</small></strong>
+          </div>
+          <div className="benchmark-stat">
+            <span>DROPPED OPTIONAL</span>
+            <strong>{benchmark.droppedLayouts}<small> 组</small></strong>
+          </div>
+          <div className="benchmark-stat violation-stat">
+            <span>UX VIOLATION RATE</span>
+            <strong>{benchmark.violationRate}<small>%</small></strong>
+          </div>
+        </div>
+        <div className="violation-list">
+          <span>TOP UNSATISFIED REASONS</span>
+          {benchmark.topViolations.length ? benchmark.topViolations.map((item) => (
+            <div key={item.label}>
+              <strong>{item.count}</strong>
+              <span>{item.label}</span>
+            </div>
+          )) : <p>本轮随机组合没有出现硬约束违规。</p>}
+        </div>
+      </section>
+
       <section className="architecture-strip" aria-label="方案对比">
         <div>
           <span className="architecture-version">V1 · TEMPLATE</span>
@@ -573,9 +751,9 @@ export default function Home() {
         </div>
         <span className="architecture-arrow">→</span>
         <div className="current">
-          <span className="architecture-version">V2 · CONSTRAINT</span>
-          <strong>DSL只给元素，引擎输出坐标</strong>
-          <code>elements[] → x / y / w / h</code>
+          <span className="architecture-version">V3 · GENERALIZED</span>
+          <strong>真实测量 + 优先级降级 + 自动评测</strong>
+          <code>elements[] → candidates → Layout IR</code>
         </div>
       </section>
 
