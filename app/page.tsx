@@ -1,334 +1,422 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
+import {
+  type CardElement,
+  type ElementDSL,
+  type LayoutResult,
+  parseElementDSL,
+  solveLayout,
+} from "./layout-engine";
 
-type TextItem = { type: "text"; eyebrow?: string; text: string; detail?: string };
-type ImageItem = { type: "image"; src: string; alt: string };
-type MetricItem = { type: "metric"; label: string; value: string; detail?: string };
-
-type CardDSL = {
-  version: "1.0";
-  type: "card";
-  title?: { primary: string; secondary?: string; icon?: string };
-  content:
-    | { layout: "single"; item: TextItem | ImageItem }
-    | { layout: "split"; items: [TextItem | MetricItem, TextItem | MetricItem] };
-  action?:
-    | { type: "capsule"; text: string; event: string }
-    | { type: "icon"; icon: string; label: string; event: string };
+type Preset = {
+  name: string;
+  description: string;
+  dsl: ElementDSL;
 };
 
-type ValidationResult = { data: CardDSL | null; errors: string[] };
-
-const presets: Array<{ name: string; description: string; dsl: CardDSL }> = [
+const presets: Preset[] = [
   {
-    name: "胶囊按钮",
-    description: "标题 + 文本 + 核心操作",
+    name: "自动求解",
+    description: "引擎比较左右锚点",
     dsl: {
-      version: "1.0",
-      type: "card",
-      title: { primary: "今日天气", secondary: "北京市", icon: "晴" },
-      content: {
-        layout: "single",
-        item: { type: "text", eyebrow: "当前温度", text: "28℃ 晴", detail: "空气质量优" },
-      },
-      action: { type: "capsule", text: "查看详情", event: "openWeatherDetail" },
+      version: "2.0",
+      type: "adaptive-card",
+      elements: [
+        {
+          id: "title",
+          type: "text",
+          role: "title",
+          text: "待办事项",
+          priority: 100,
+        },
+        {
+          id: "app",
+          type: "appIcon",
+          symbol: "办",
+          label: "待办应用",
+          priority: 90,
+        },
+        {
+          id: "date",
+          type: "text",
+          role: "caption",
+          text: "今天",
+          priority: 70,
+        },
+        {
+          id: "task",
+          type: "text",
+          role: "body",
+          text: "完成方案评审",
+          supporting: "14:30 · 会议室 A",
+          priority: 95,
+        },
+        {
+          id: "complete",
+          type: "iconButton",
+          icon: "✓",
+          label: "标记为完成",
+          event: "completeTodo",
+          placement: "auto",
+          priority: 100,
+        },
+      ],
     },
   },
   {
-    name: "图标按钮",
-    description: "文本信息 + 轻量操作",
+    name: "左下操作",
+    description: "语义偏好指定左下",
     dsl: {
-      version: "1.0",
-      type: "card",
-      title: { primary: "待办事项", icon: "办" },
-      content: {
-        layout: "single",
-        item: { type: "text", eyebrow: "今天", text: "完成方案评审", detail: "14:30 · 会议室 A" },
-      },
-      action: { type: "icon", icon: "✓", label: "标记为完成", event: "completeTodo" },
+      version: "2.0",
+      type: "adaptive-card",
+      elements: [
+        {
+          id: "title",
+          type: "text",
+          role: "title",
+          text: "待办事项",
+        },
+        {
+          id: "date",
+          type: "text",
+          role: "caption",
+          text: "今天",
+        },
+        {
+          id: "task",
+          type: "text",
+          role: "body",
+          text: "完成方案评审",
+          supporting: "14:30 · 会议室 A",
+        },
+        {
+          id: "complete",
+          type: "iconButton",
+          icon: "✓",
+          label: "标记为完成",
+          event: "completeTodo",
+          placement: "bottom-start",
+        },
+      ],
     },
   },
   {
-    name: "纯图片",
-    description: "无按钮时横向撑满",
+    name: "胶囊操作",
+    description: "操作区占据底部通栏",
     dsl: {
-      version: "1.0",
-      type: "card",
-      title: { primary: "本周回忆" },
-      content: {
-        layout: "single",
-        item: {
+      version: "2.0",
+      type: "adaptive-card",
+      elements: [
+        {
+          id: "title",
+          type: "text",
+          role: "title",
+          text: "今日天气",
+        },
+        {
+          id: "app",
+          type: "appIcon",
+          symbol: "晴",
+          label: "天气应用",
+        },
+        {
+          id: "location",
+          type: "text",
+          role: "caption",
+          text: "北京市",
+        },
+        {
+          id: "weather",
+          type: "text",
+          role: "body",
+          text: "28℃ 晴",
+          supporting: "空气质量优",
+        },
+        {
+          id: "detail",
+          type: "capsuleButton",
+          label: "查看详情",
+          event: "openWeatherDetail",
+        },
+      ],
+    },
+  },
+  {
+    name: "并行指标",
+    description: "同类元素自动等分",
+    dsl: {
+      version: "2.0",
+      type: "adaptive-card",
+      elements: [
+        {
+          id: "left-ear",
+          type: "metric",
+          label: "左耳",
+          value: "82%",
+          detail: "电量",
+        },
+        {
+          id: "right-ear",
+          type: "metric",
+          label: "右耳",
+          value: "76%",
+          detail: "电量",
+        },
+      ],
+    },
+  },
+  {
+    name: "图片内容",
+    description: "填充最大可用矩形",
+    dsl: {
+      version: "2.0",
+      type: "adaptive-card",
+      elements: [
+        {
+          id: "title",
+          type: "text",
+          role: "title",
+          text: "本周回忆",
+        },
+        {
+          id: "photo",
           type: "image",
           src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=420&q=80",
           alt: "山谷中的自然风景",
         },
-      },
-    },
-  },
-  {
-    name: "二分区域",
-    description: "两个并行信息，无标题与按钮",
-    dsl: {
-      version: "1.0",
-      type: "card",
-      content: {
-        layout: "split",
-        items: [
-          { type: "metric", label: "左耳", value: "82%", detail: "电量" },
-          { type: "metric", label: "右耳", value: "76%", detail: "电量" },
-        ],
-      },
+      ],
     },
   },
 ];
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function validateDSL(source: string): ValidationResult {
-  let raw: unknown;
-  try {
-    raw = JSON.parse(source);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "未知 JSON 错误";
-    return { data: null, errors: [`JSON 语法错误：${message}`] };
-  }
-
-  if (!isRecord(raw)) return { data: null, errors: ["根节点必须是一个 JSON 对象"] };
-  const errors: string[] = [];
-
-  if (raw.version !== "1.0") errors.push('version 必须为 "1.0"');
-  if (raw.type !== "card") errors.push('type 必须为 "card"');
-  if ("style" in raw) errors.push("不允许在 DSL 中声明 style，视觉规则由 Renderer 统一控制");
-
-  if (raw.title !== undefined) {
-    if (!isRecord(raw.title)) {
-      errors.push("title 必须是一个对象");
-    } else {
-      if (typeof raw.title.primary !== "string" || !raw.title.primary.trim()) {
-        errors.push("title.primary 为必填字符串");
-      }
-      if (raw.title.secondary !== undefined && typeof raw.title.secondary !== "string") {
-        errors.push("title.secondary 必须是字符串");
-      }
-      if (raw.title.icon !== undefined && typeof raw.title.icon !== "string") {
-        errors.push("title.icon 必须是字符串");
-      }
-    }
-  }
-
-  if (!isRecord(raw.content)) {
-    errors.push("content 为必填对象");
-  } else if (raw.content.layout === "single") {
-    if (!isRecord(raw.content.item)) {
-      errors.push("single 布局必须包含 item 对象");
-    } else if (raw.content.item.type === "text") {
-      if (typeof raw.content.item.text !== "string" || !raw.content.item.text.trim()) {
-        errors.push("文本内容必须包含非空的 text");
-      }
-    } else if (raw.content.item.type === "image") {
-      if (typeof raw.content.item.src !== "string" || !raw.content.item.src.trim()) {
-        errors.push("图片内容必须包含 src");
-      }
-      if (typeof raw.content.item.alt !== "string" || !raw.content.item.alt.trim()) {
-        errors.push("图片内容必须包含 alt 文本");
-      }
-    } else {
-      errors.push("single.item.type 仅支持 text 或 image");
-    }
-  } else if (raw.content.layout === "split") {
-    if (raw.title !== undefined) errors.push("split 布局不能包含 title");
-    if (raw.action !== undefined) errors.push("split 布局不能包含 action");
-    if (!Array.isArray(raw.content.items) || raw.content.items.length !== 2) {
-      errors.push("split 布局必须且只能包含两个 items");
-    } else {
-      raw.content.items.forEach((item, index) => {
-        if (!isRecord(item)) {
-          errors.push(`items[${index}] 必须是对象`);
-        } else if (item.type === "metric") {
-          if (typeof item.label !== "string" || typeof item.value !== "string") {
-            errors.push(`items[${index}] 的 metric 必须包含 label 和 value`);
-          }
-        } else if (item.type === "text") {
-          if (typeof item.text !== "string" || !item.text.trim()) {
-            errors.push(`items[${index}] 的 text 不能为空`);
-          }
-        } else {
-          errors.push(`items[${index}].type 仅支持 metric 或 text`);
-        }
-      });
-    }
-  } else {
-    errors.push("content.layout 仅支持 single 或 split");
-  }
-
-  if (raw.action !== undefined) {
-    if (!isRecord(raw.action)) {
-      errors.push("action 必须是一个对象");
-    } else if (raw.action.type === "capsule") {
-      if (typeof raw.action.text !== "string" || !raw.action.text.trim()) {
-        errors.push("capsule action 必须包含 text");
-      }
-      if (typeof raw.action.event !== "string" || !raw.action.event.trim()) {
-        errors.push("capsule action 必须包含 event");
-      }
-    } else if (raw.action.type === "icon") {
-      if (typeof raw.action.icon !== "string" || !raw.action.icon.trim()) {
-        errors.push("icon action 必须包含 icon");
-      }
-      if (typeof raw.action.label !== "string" || !raw.action.label.trim()) {
-        errors.push("icon action 必须包含无障碍 label");
-      }
-      if (typeof raw.action.event !== "string" || !raw.action.event.trim()) {
-        errors.push("icon action 必须包含 event");
-      }
-    } else {
-      errors.push("action.type 仅支持 capsule 或 icon");
-    }
-  }
-
-  return errors.length ? { data: null, errors } : { data: raw as CardDSL, errors: [] };
-}
-
-function CardPreview({ dsl, onAction }: { dsl: CardDSL; onAction: (event: string) => void }) {
-  const contentClass = [
-    "ux-content",
-    dsl.content.layout === "split" ? "is-split" : "is-single",
-    dsl.action?.type === "icon" ? "has-icon-action" : "",
-  ].filter(Boolean).join(" ");
-
-  return (
-    <article className="ux-card" aria-label="2×2 卡片预览">
-      {dsl.title && (
-        <header className={`ux-title ${dsl.title.secondary ? "has-secondary" : ""}`}>
-          <div className="ux-title-copy">
-            <strong>{dsl.title.primary}</strong>
-            {dsl.title.secondary && <span>{dsl.title.secondary}</span>}
-          </div>
-          {dsl.title.icon && <span className="ux-app-icon" aria-hidden="true">{dsl.title.icon}</span>}
-        </header>
-      )}
-
-      <section className={contentClass}>
-        {dsl.content.layout === "single" ? (
-          dsl.content.item.type === "text" ? (
-            <div className="ux-text-content">
-              {dsl.content.item.eyebrow && <span className="ux-eyebrow">{dsl.content.item.eyebrow}</span>}
-              <p>{dsl.content.item.text}</p>
-              {dsl.content.item.detail && <small>{dsl.content.item.detail}</small>}
-            </div>
-          ) : (
-            <div className="ux-image-wrap">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={dsl.content.item.src} alt={dsl.content.item.alt} />
-            </div>
-          )
-        ) : (
-          dsl.content.items.map((item, index) => (
-            <div className="ux-split-item" key={`${item.type}-${index}`}>
-              {item.type === "metric" ? (
-                <>
-                  <span>{item.label}</span>
-                  <strong>{item.value}</strong>
-                  {item.detail && <small>{item.detail}</small>}
-                </>
-              ) : <p>{item.text}</p>}
-            </div>
-          ))
-        )}
-      </section>
-
-      {dsl.action?.type === "capsule" && (
-        <button className="ux-capsule" type="button" onClick={() => onAction(dsl.action!.event)}>
-          {dsl.action.text}
-        </button>
-      )}
-      {dsl.action?.type === "icon" && (
+function renderElement(
+  element: CardElement,
+  onAction: (event: string) => void,
+) {
+  switch (element.type) {
+    case "text":
+      return (
+        <div className={`render-text role-${element.role}`}>
+          <span>{element.text}</span>
+          {element.supporting && <small>{element.supporting}</small>}
+        </div>
+      );
+    case "appIcon":
+      return (
+        <span className="render-app-icon" aria-label={element.label}>
+          {element.symbol}
+        </span>
+      );
+    case "iconButton":
+      return (
         <button
-          className="ux-icon-button"
+          className="render-icon-button"
           type="button"
-          aria-label={dsl.action.label}
-          onClick={() => onAction(dsl.action!.event)}
+          aria-label={element.label}
+          onClick={() => onAction(element.event)}
         >
-          {dsl.action.icon}
+          {element.icon}
         </button>
-      )}
+      );
+    case "capsuleButton":
+      return (
+        <button
+          className="render-capsule-button"
+          type="button"
+          onClick={() => onAction(element.event)}
+        >
+          {element.label}
+        </button>
+      );
+    case "metric":
+      return (
+        <div className="render-metric">
+          <span>{element.label}</span>
+          <strong>{element.value}</strong>
+          {element.detail && <small>{element.detail}</small>}
+        </div>
+      );
+    case "image":
+      return (
+        <div className="render-image">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={element.src} alt={element.alt} />
+        </div>
+      );
+  }
+}
+
+function CoordinateCard({
+  layout,
+  showGuides,
+  onAction,
+}: {
+  layout: LayoutResult;
+  showGuides: boolean;
+  onAction: (event: string) => void;
+}) {
+  return (
+    <article
+      className={`adaptive-card ${showGuides ? "show-guides" : ""}`}
+      aria-label="约束布局生成的2×2卡片"
+    >
+      <div className="safe-area-guide" aria-hidden="true" />
+      {layout.nodes.map((node) => {
+        const style: CSSProperties = {
+          left: node.x,
+          top: node.y,
+          width: node.width,
+          height: node.height,
+        };
+        return (
+          <div
+            className={`layout-node node-${node.element.type}`}
+            data-node-id={node.id}
+            style={style}
+            key={node.id}
+          >
+            {renderElement(node.element, onAction)}
+          </div>
+        );
+      })}
     </article>
+  );
+}
+
+function CoordinateTable({ layout }: { layout: LayoutResult }) {
+  return (
+    <div className="coordinate-table">
+      <div className="coordinate-row coordinate-head">
+        <span>ELEMENT</span><span>X</span><span>Y</span><span>W</span><span>H</span>
+      </div>
+      {layout.nodes.map((node) => (
+        <div className="coordinate-row" key={node.id}>
+          <strong>{node.id}</strong>
+          <span>{node.x}</span>
+          <span>{node.y}</span>
+          <span>{node.width}</span>
+          <span>{node.height}</span>
+        </div>
+      ))}
+    </div>
   );
 }
 
 export default function Home() {
   const [activePreset, setActivePreset] = useState(0);
-  const [source, setSource] = useState(() => JSON.stringify(presets[0].dsl, null, 2));
+  const [source, setSource] = useState(() =>
+    JSON.stringify(presets[0].dsl, null, 2),
+  );
+  const [showGuides, setShowGuides] = useState(true);
   const [toast, setToast] = useState("");
-  const validation = useMemo(() => validateDSL(source), [source]);
+  const parsed = useMemo(() => parseElementDSL(source), [source]);
+  const layout = useMemo(
+    () => (parsed.data ? solveLayout(parsed.data) : null),
+    [parsed.data],
+  );
+  const errors = [
+    ...parsed.errors,
+    ...(layout?.status === "unsatisfied" ? layout.violations : []),
+  ];
+  const isSolved = parsed.data !== null && layout?.status === "solved";
+
+  const layoutIR = useMemo(() => {
+    if (!layout) return "";
+    return JSON.stringify(
+      {
+        card: layout.card,
+        score: layout.score,
+        nodes: layout.nodes.map(({ id, x, y, width, height }) => ({
+          id,
+          x,
+          y,
+          width,
+          height,
+        })),
+      },
+      null,
+      2,
+    );
+  }, [layout]);
 
   function selectPreset(index: number) {
     setActivePreset(index);
     setSource(JSON.stringify(presets[index].dsl, null, 2));
   }
 
+  function showToast(message: string, duration = 1900) {
+    setToast(message);
+    window.setTimeout(() => setToast(""), duration);
+  }
+
   function formatSource() {
     try {
       setSource(JSON.stringify(JSON.parse(source), null, 2));
     } catch {
-      setToast("JSON 尚未通过语法校验");
-      window.setTimeout(() => setToast(""), 1800);
+      showToast("JSON 尚未通过语法校验");
     }
   }
 
-  async function copySource() {
+  async function copyText(value: string, success: string) {
     try {
-      await navigator.clipboard.writeText(source);
-      setToast("DSL 已复制");
+      await navigator.clipboard.writeText(value);
+      showToast(success);
     } catch {
-      setToast("复制失败，请手动选择文本");
+      showToast("复制失败，请手动选择文本");
     }
-    window.setTimeout(() => setToast(""), 1800);
   }
 
   function handleAction(event: string) {
-    setToast(`已触发事件：${event}`);
-    window.setTimeout(() => setToast(""), 2200);
+    showToast(`已触发事件：${event}`, 2300);
   }
 
   return (
     <main className="site-shell">
       <nav className="topbar" aria-label="Demo 导航">
         <div className="brand">
-          <span className="brand-grid" aria-hidden="true"><i /><i /><i /><i /></span>
-          <span>DSL LAB</span>
+          <span className="brand-grid" aria-hidden="true">
+            <i /><i /><i /><i />
+          </span>
+          <span>CONSTRAINT LAB</span>
         </div>
         <div className="topbar-meta">
           <span>2×2 CARD</span>
-          <span className="version-badge">UX SPEC · V0.1</span>
+          <span className="version-badge">LAYOUT ENGINE · V0.2</span>
         </div>
       </nav>
 
       <header className="intro">
         <div>
-          <p className="kicker">GENERATIVE UI PROTOTYPE</p>
-          <h1>把设计规范，变成<br /><em>可执行的界面语言。</em></h1>
+          <p className="kicker">CONSTRAINT-DRIVEN GENERATIVE UI</p>
+          <h1>不给模板，只给元素。<br /><em>让规则算出坐标。</em></h1>
         </div>
-        <p className="intro-copy">
-          编辑 JSON DSL，Renderer 会锁定安全边距、排版和布局规则，
-          并即时生成符合规范的160×160vp卡片。
-        </p>
+        <div className="intro-side">
+          <p>
+            DSL只描述元素、语义和操作偏好。布局引擎枚举候选位置，
+            过滤越界与重叠结果，再输出可直接渲染的坐标 Layout IR。
+          </p>
+          <div className="pipeline" aria-label="生成流程">
+            <span>ELEMENT DSL</span><i>→</i><span>SOLVER</span><i>→</i><span>LAYOUT IR</span>
+          </div>
+        </div>
       </header>
 
-      <section className="workspace" aria-label="DSL 编辑与卡片预览">
+      <section className="workspace" aria-label="元素DSL与约束布局结果">
         <section className="panel editor-panel">
           <div className="panel-heading">
-            <div><span className="step-label">01 / INPUT</span><h2>DSL 编辑器</h2></div>
+            <div>
+              <span className="step-label">01 / SEMANTIC INPUT</span>
+              <h2>元素 DSL</h2>
+            </div>
             <div className="editor-actions">
               <button type="button" onClick={formatSource}>格式化</button>
-              <button type="button" onClick={copySource}>复制</button>
+              <button type="button" onClick={() => copyText(source, "Element DSL 已复制")}>复制</button>
             </div>
           </div>
 
-          <div className="preset-tabs" role="tablist" aria-label="DSL 示例">
+          <div className="preset-tabs" role="tablist" aria-label="元素DSL示例">
             {presets.map((preset, index) => (
               <button
                 type="button"
@@ -338,81 +426,164 @@ export default function Home() {
                 onClick={() => selectPreset(index)}
                 key={preset.name}
               >
-                <strong>{preset.name}</strong><span>{preset.description}</span>
+                <strong>{preset.name}</strong>
+                <span>{preset.description}</span>
               </button>
             ))}
           </div>
 
           <div className="code-shell">
             <div className="code-toolbar">
-              <span><i /> card.dsl.json</span><span>JSON</span>
+              <span><i /> elements.dsl.json</span>
+              <span>NO X / Y ALLOWED</span>
             </div>
             <textarea
               value={source}
               onChange={(event) => setSource(event.target.value)}
               spellCheck={false}
-              aria-label="JSON DSL 编辑器"
+              aria-label="元素DSL编辑器"
             />
           </div>
 
-          <div className={`validation ${validation.errors.length ? "invalid" : "valid"}`}>
+          <div className={`validation ${errors.length ? "invalid" : "valid"}`}>
             <div className="validation-title">
               <span className="status-dot" />
-              <strong>{validation.errors.length ? "Schema 校验未通过" : "Schema 校验通过"}</strong>
-              <span>{validation.errors.length ? `${validation.errors.length} 个问题` : "可安全渲染"}</span>
+              <strong>
+                {errors.length
+                  ? "约束求解失败"
+                  : "元素合法，布局已求解"}
+              </strong>
+              <span>{errors.length ? `${errors.length} 个问题` : "无坐标输入"}</span>
             </div>
-            {validation.errors.length > 0 ? (
-              <ul>{validation.errors.map((error) => <li key={error}>{error}</li>)}</ul>
-            ) : <p>结构合法，所有视觉参数将由 Renderer 注入。</p>}
+            {errors.length > 0 ? (
+              <ul>{errors.map((error) => <li key={error}>{error}</li>)}</ul>
+            ) : (
+              <p>DSL通过语义校验；x、y、width、height全部由布局引擎生成。</p>
+            )}
           </div>
         </section>
 
         <aside className="panel preview-panel">
           <div className="panel-heading">
-            <div><span className="step-label">02 / OUTPUT</span><h2>实时预览</h2></div>
-            <span className={`live-pill ${validation.data ? "is-live" : ""}`}>
-              <i /> {validation.data ? "LIVE" : "PAUSED"}
-            </span>
+            <div>
+              <span className="step-label">02 / COORDINATE OUTPUT</span>
+              <h2>约束布局结果</h2>
+            </div>
+            <div className="preview-actions">
+              <button
+                type="button"
+                className={showGuides ? "active" : ""}
+                aria-pressed={showGuides}
+                onClick={() => setShowGuides((value) => !value)}
+              >
+                坐标框
+              </button>
+              <span className={`live-pill ${isSolved ? "is-live" : ""}`}>
+                <i /> {isSolved ? "SOLVED" : "PAUSED"}
+              </span>
+            </div>
           </div>
 
           <div className="preview-stage">
+            <div className="stage-label">RENDERED FROM LAYOUT IR · 1.72×</div>
             <div className="ruler ruler-x"><span>160vp</span></div>
             <div className="ruler ruler-y"><span>160vp</span></div>
             <div className="card-scale">
-              {validation.data ? (
-                <CardPreview dsl={validation.data} onAction={handleAction} />
+              {isSolved && layout ? (
+                <CoordinateCard
+                  layout={layout}
+                  showGuides={showGuides}
+                  onAction={handleAction}
+                />
               ) : (
                 <div className="render-blocked">
-                  <span>!</span><strong>渲染已暂停</strong><p>修复左侧 DSL 后自动恢复预览</p>
+                  <span>!</span>
+                  <strong>无合法布局</strong>
+                  <p>修改左侧元素后重新求解</p>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="token-section">
-            <div className="section-caption">
-              <span>RENDERER TOKENS</span><span>固定规则，不由 DSL 修改</span>
-            </div>
-            <dl className="token-grid">
-              <div><dt>卡片尺寸</dt><dd>160 × 160vp</dd></div>
-              <div><dt>安全边距</dt><dd>12vp</dd></div>
-              <div><dt>卡片圆角</dt><dd>20vp</dd></div>
-              <div><dt>区域间距</dt><dd>8vp</dd></div>
-              <div><dt>按钮高度</dt><dd>36vp</dd></div>
-              <div><dt>内容字号</dt><dd>14fp / 20fp</dd></div>
-            </dl>
-          </div>
+          {layout && (
+            <>
+              <div className="solver-summary">
+                <div>
+                  <span>LAYOUT SCORE</span>
+                  <strong>{layout.score}<small>/100</small></strong>
+                </div>
+                <div>
+                  <span>CANDIDATES</span>
+                  <strong>{layout.candidateCount}<small> 个</small></strong>
+                </div>
+                <div>
+                  <span>HARD RULES</span>
+                  <strong>
+                    {layout.checks.filter((check) => check.passed).length}
+                    <small>/{layout.checks.length}</small>
+                  </strong>
+                </div>
+              </div>
 
-          <div className="rule-note">
-            <span>RULE</span><p>二分区域固定为两个并行内容，并自动禁用标题和按钮。</p>
-          </div>
+              <section className="constraint-section">
+                <div className="section-caption">
+                  <span>CONSTRAINT CHECKS</span>
+                  <span>硬约束必须全部通过</span>
+                </div>
+                <div className="constraint-chips">
+                  {layout.checks.map((check) => (
+                    <span className={check.passed ? "passed" : "failed"} key={check.id}>
+                      <i /> {check.label}
+                    </span>
+                  ))}
+                </div>
+              </section>
+
+              <section className="ir-section">
+                <div className="section-caption">
+                  <span>LAYOUT IR</span>
+                  <button type="button" onClick={() => copyText(layoutIR, "Layout IR 已复制")}>复制坐标</button>
+                </div>
+                <CoordinateTable layout={layout} />
+                <details>
+                  <summary>查看完整坐标 JSON</summary>
+                  <pre>{layoutIR}</pre>
+                </details>
+              </section>
+
+              <section className="decision-section">
+                <div className="section-caption">
+                  <span>SOLVER DECISIONS</span>
+                  <span>本次求解说明</span>
+                </div>
+                <ol>
+                  {layout.decisions.map((decision) => <li key={decision}>{decision}</li>)}
+                </ol>
+              </section>
+            </>
+          )}
         </aside>
       </section>
 
+      <section className="architecture-strip" aria-label="方案对比">
+        <div>
+          <span className="architecture-version">V1 · TEMPLATE</span>
+          <strong>DSL选择预定义布局</strong>
+          <code>content.layout = &quot;single&quot;</code>
+        </div>
+        <span className="architecture-arrow">→</span>
+        <div className="current">
+          <span className="architecture-version">V2 · CONSTRAINT</span>
+          <strong>DSL只给元素，引擎输出坐标</strong>
+          <code>elements[] → x / y / w / h</code>
+        </div>
+      </section>
+
       <footer>
-        <span>UX SPEC → DSL → VALIDATOR → RENDERER</span>
-        <span>2×2 CARD PROOF OF CONCEPT</span>
+        <span>ELEMENT DSL → VALIDATOR → CONSTRAINT SOLVER → LAYOUT IR → RENDERER</span>
+        <span>2×2 CARD RESEARCH PROTOTYPE</span>
       </footer>
+
       {toast && <div className="toast" role="status">{toast}</div>}
     </main>
   );
