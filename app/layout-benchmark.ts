@@ -1,6 +1,7 @@
 import {
   type CardElement,
   type ElementDSL,
+  type LayoutResult,
   estimatedTextMeasurer,
   solveLayout,
 } from "./layout-engine";
@@ -15,6 +16,14 @@ export type BenchmarkResult = {
   droppedLayouts: number;
   violationRate: number;
   topViolations: Array<{ label: string; count: number }>;
+  cases: BenchmarkCase[];
+};
+
+export type BenchmarkCase = {
+  index: number;
+  category: "文本组合" | "指标组合" | "图片组合";
+  dsl: ElementDSL;
+  result: LayoutResult;
 };
 
 const shortTexts = ["今天", "设备", "待办", "空气", "本周", "会议"];
@@ -193,7 +202,7 @@ function generateImageScenario(index: number, random: () => number): ElementDSL 
 
 export function runBenchmark(total = 250, seed = 20260826): BenchmarkResult {
   const random = seededRandom(seed);
-  const results = Array.from({ length: total }, (_, index) => {
+  const cases: BenchmarkCase[] = Array.from({ length: total }, (_, index) => {
     const scenario = index % 3;
     const dsl =
       scenario === 0
@@ -201,8 +210,19 @@ export function runBenchmark(total = 250, seed = 20260826): BenchmarkResult {
         : scenario === 1
           ? generateMetricScenario(index, random)
           : generateImageScenario(index, random);
-    return solveLayout(dsl, estimatedTextMeasurer);
+    return {
+      index: index + 1,
+      category:
+        scenario === 0
+          ? "文本组合"
+          : scenario === 1
+            ? "指标组合"
+            : "图片组合",
+      dsl,
+      result: solveLayout(dsl, estimatedTextMeasurer),
+    };
   });
+  const results = cases.map((item) => item.result);
 
   const violationCounts = new Map<string, number>();
   results.forEach((result) => {
@@ -243,5 +263,6 @@ export function runBenchmark(total = 250, seed = 20260826): BenchmarkResult {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3)
       .map(([label, count]) => ({ label, count })),
+    cases,
   };
 }

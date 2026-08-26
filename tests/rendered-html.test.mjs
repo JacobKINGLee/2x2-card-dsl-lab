@@ -34,6 +34,9 @@ test("server-renders the V3 constraint layout lab", async () => {
   assert.match(html, /随机组合压力测试/);
   assert.match(html, /SOLVE RATE/);
   assert.match(html, /UX VIOLATION RATE/);
+  assert.match(html, /TEST CASE BROWSER/);
+  assert.match(html, /GENERATED ELEMENT DSL/);
+  assert.match(html, /SOLVER RESULT \/ LAYOUT IR/);
   assert.match(html, /NO X \/ Y ALLOWED/);
 });
 

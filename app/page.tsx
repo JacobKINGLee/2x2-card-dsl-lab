@@ -390,6 +390,7 @@ export default function Home() {
   const [showGuides, setShowGuides] = useState(true);
   const [toast, setToast] = useState("");
   const [fontReady, setFontReady] = useState(false);
+  const [benchmarkIndex, setBenchmarkIndex] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -407,6 +408,35 @@ export default function Home() {
     [fontReady],
   );
   const benchmark = useMemo(() => runBenchmark(250, 20260826), []);
+  const benchmarkCase = benchmark.cases[benchmarkIndex];
+  const benchmarkCaseResult = useMemo(
+    () =>
+      JSON.stringify(
+        {
+          status: benchmarkCase.result.status,
+          score: benchmarkCase.result.score,
+          candidateCount: benchmarkCase.result.candidateCount,
+          measurement: benchmarkCase.result.measurement,
+          compressedIds: benchmarkCase.result.compressedIds,
+          droppedIds: benchmarkCase.result.droppedIds,
+          nodes: benchmarkCase.result.nodes.map(
+            ({ id, x, y, width, height, presentation, truncated }) => ({
+              id,
+              x,
+              y,
+              width,
+              height,
+              presentation,
+              truncated,
+            }),
+          ),
+          violations: benchmarkCase.result.violations,
+        },
+        null,
+        2,
+      ),
+    [benchmarkCase],
+  );
   const parsed = useMemo(() => parseElementDSL(source), [source]);
   const layout = useMemo(
     () => (parsed.data ? solveLayout(parsed.data, textMeasurer) : null),
@@ -471,6 +501,10 @@ export default function Home() {
 
   function handleAction(event: string) {
     showToast(`已触发事件：${event}`, 2300);
+  }
+
+  function selectBenchmarkCase(index: number) {
+    setBenchmarkIndex(Math.min(benchmark.total - 1, Math.max(0, index)));
   }
 
   return (
@@ -741,6 +775,95 @@ export default function Home() {
             </div>
           )) : <p>本轮随机组合没有出现硬约束违规。</p>}
         </div>
+        <section className="case-browser" aria-label="250组随机测试样本浏览器">
+          <div className="case-browser-heading">
+            <div>
+              <span>TEST CASE BROWSER</span>
+              <strong>查看第 {benchmarkCase.index} 组 · {benchmarkCase.category}</strong>
+            </div>
+            <div className="case-navigation">
+              <button
+                type="button"
+                onClick={() => selectBenchmarkCase(benchmarkIndex - 1)}
+                disabled={benchmarkIndex === 0}
+                aria-label="上一组测试"
+              >
+                ←
+              </button>
+              <label>
+                <span>编号</span>
+                <input
+                  type="number"
+                  min="1"
+                  max={benchmark.total}
+                  value={benchmarkCase.index}
+                  onChange={(event) =>
+                    selectBenchmarkCase(Number(event.target.value) - 1)
+                  }
+                />
+                <small>/ {benchmark.total}</small>
+              </label>
+              <button
+                type="button"
+                onClick={() => selectBenchmarkCase(benchmarkIndex + 1)}
+                disabled={benchmarkIndex === benchmark.total - 1}
+                aria-label="下一组测试"
+              >
+                →
+              </button>
+              <span
+                className={`case-status ${benchmarkCase.result.status === "solved" ? "solved" : "unsatisfied"}`}
+              >
+                {benchmarkCase.result.status.toUpperCase()}
+              </span>
+            </div>
+          </div>
+          <input
+            className="case-range"
+            type="range"
+            min="0"
+            max={benchmark.total - 1}
+            value={benchmarkIndex}
+            onChange={(event) => selectBenchmarkCase(Number(event.target.value))}
+            aria-label="选择测试样本"
+          />
+          <div className="case-code-grid">
+            <div>
+              <div className="case-code-label">
+                <span>GENERATED ELEMENT DSL</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    copyText(
+                      JSON.stringify(benchmarkCase.dsl, null, 2),
+                      `第 ${benchmarkCase.index} 组 DSL 已复制`,
+                    )
+                  }
+                >
+                  复制
+                </button>
+              </div>
+              <pre>{JSON.stringify(benchmarkCase.dsl, null, 2)}</pre>
+            </div>
+            <div>
+              <div className="case-code-label">
+                <span>SOLVER RESULT / LAYOUT IR</span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    copyText(
+                      benchmarkCaseResult,
+                      `第 ${benchmarkCase.index} 组结果已复制`,
+                    )
+                  }
+                >
+                  复制
+                </button>
+              </div>
+              <pre>{benchmarkCaseResult}</pre>
+            </div>
+          </div>
+        </section>
       </section>
 
       <section className="architecture-strip" aria-label="方案对比">
