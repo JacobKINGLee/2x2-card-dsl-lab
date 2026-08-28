@@ -1,4 +1,31 @@
-# vinext-starter
+# 2x2 Card DSL Lab
+
+## Windows 本地演示（推荐）
+
+本方案完全在演示电脑上运行，不依赖 `chatgpt.site`，启动后访问：
+
+```text
+http://localhost:3000
+```
+
+演示前请完成一次准备：
+
+1. 在演示电脑安装 Node.js `22.13.0` 或更高版本。
+2. 将本项目完整复制或从 GitHub 克隆到演示电脑。
+3. 在有网络时双击 `start-local-demo.bat`。第一次运行会自动执行 `npm install`。
+4. 确认页面成功打开后，可断开网络再次运行脚本验证离线演示。
+
+正式演示时，双击 `start-local-demo.bat` 即可。脚本会构建项目、启动本地服务并打开浏览器。演示结束后，关闭标题为 `2x2 Card DSL Local Server` 的命令行窗口即可停止服务。
+
+也可以使用命令行：
+
+```bash
+npm install
+npm run build
+npm run demo:local
+```
+
+`localhost` 只能从运行服务的这台电脑访问。若需要同一局域网内的其他设备访问，可以运行 `npm run demo:lan`，再使用演示电脑的局域网 IP；该方式可能受到 Windows 防火墙或单位网络策略影响。
 
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and

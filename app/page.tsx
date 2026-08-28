@@ -253,8 +253,8 @@ const presets: Preset[] = [
         {
           id: "photo",
           type: "image",
-          src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=420&q=80",
-          alt: "山谷中的自然风景",
+          src: "/og.png",
+          alt: "2×2 Card DSL Lab 本地示例图",
         },
       ],
     },
