@@ -1,0 +1,1513 @@
+{
+  "completedAt": "2026-09-07T02:44:18.206Z",
+  "expected": 132,
+  "completed": 132,
+  "core": {
+    "count": 120,
+    "transport": {
+      "passed": 120,
+      "total": 120
+    },
+    "json": {
+      "passed": 120,
+      "total": 120
+    },
+    "schema": {
+      "passed": 112,
+      "total": 120
+    },
+    "semantic": {
+      "passed": 67,
+      "total": 120
+    },
+    "dsl": {
+      "passed": 120,
+      "total": 120
+    },
+    "engine": {
+      "passed": 120,
+      "total": 120
+    },
+    "joint": {
+      "passed": 65,
+      "total": 120
+    },
+    "normalized": 25,
+    "layoutRepaired": 0,
+    "assertions": {
+      "domain": {
+        "passed": 113,
+        "total": 120
+      },
+      "visualization": {
+        "passed": 95,
+        "total": 120
+      },
+      "value": {
+        "passed": 117,
+        "total": 120
+      },
+      "unit": {
+        "passed": 111,
+        "total": 120
+      },
+      "progressValue": {
+        "passed": 20,
+        "total": 42
+      },
+      "state": {
+        "passed": 24,
+        "total": 27
+      },
+      "emphasis": {
+        "passed": 12,
+        "total": 12
+      },
+      "actionLabel": {
+        "passed": 108,
+        "total": 120
+      }
+    },
+    "latencyMs": {
+      "p50": 2411.4464000000007,
+      "p95": 3167.0276999999915
+    },
+    "promptTokens": 155515,
+    "completionTokens": 17717
+  },
+  "byDomain": {
+    "energy": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 15,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 4,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 4,
+        "total": 15
+      },
+      "normalized": 11,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 5,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 5,
+          "total": 12
+        },
+        "state": {
+          "passed": 9,
+          "total": 9
+        },
+        "emphasis": {
+          "passed": 6,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 13,
+          "total": 15
+        }
+      },
+      "latencyMs": {
+        "p50": 2461.1076999999987,
+        "p95": 2666.1722999999993
+      },
+      "promptTokens": 19458,
+      "completionTokens": 2200
+    },
+    "weather": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 15,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 9,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 9,
+        "total": 15
+      },
+      "normalized": 4,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 12,
+          "total": 15
+        },
+        "value": {
+          "passed": 12,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "state": {
+          "passed": 6,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 15,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 0,
+          "total": 3
+        },
+        "emphasis": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2365.7577999999994,
+        "p95": 2660.7454
+      },
+      "promptTokens": 19442,
+      "completionTokens": 2149
+    },
+    "wellness": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 14,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 9,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 9,
+        "total": 15
+      },
+      "normalized": 2,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 12,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 6,
+          "total": 9
+        },
+        "actionLabel": {
+          "passed": 11,
+          "total": 15
+        },
+        "state": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2319.8708999999944,
+        "p95": 2575.678500000002
+      },
+      "promptTokens": 19484,
+      "completionTokens": 2228
+    },
+    "fitness": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 15,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 15,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 15,
+        "total": 15
+      },
+      "normalized": 0,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 15,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "actionLabel": {
+          "passed": 15,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2611.009499999993,
+        "p95": 3604.095199999996
+      },
+      "promptTokens": 19451,
+      "completionTokens": 2300
+    },
+    "system": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 13,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 9,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 9,
+        "total": 15
+      },
+      "normalized": 3,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 9,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 0,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 15,
+          "total": 15
+        }
+      },
+      "latencyMs": {
+        "p50": 2433.8552000000054,
+        "p95": 3508.1507999999885
+      },
+      "promptTokens": 19411,
+      "completionTokens": 2183
+    },
+    "productivity": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 15,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 7,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 7,
+        "total": 15
+      },
+      "normalized": 0,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 15,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 9,
+          "total": 15
+        },
+        "state": {
+          "passed": 3,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 13,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2263.929900000003,
+        "p95": 6186.710899999991
+      },
+      "promptTokens": 19424,
+      "completionTokens": 2214
+    },
+    "environment": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 15,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 9,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 9,
+        "total": 15
+      },
+      "normalized": 0,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 12,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "actionLabel": {
+          "passed": 12,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 0,
+          "total": 3
+        },
+        "state": {
+          "passed": 3,
+          "total": 3
+        },
+        "emphasis": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2510.5671,
+        "p95": 2752.203999999998
+      },
+      "promptTokens": 19448,
+      "completionTokens": 2223
+    },
+    "generic": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 10,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 5,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 3,
+        "total": 15
+      },
+      "normalized": 5,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 8,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 15,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 12,
+          "total": 15
+        },
+        "actionLabel": {
+          "passed": 14,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2430.5044000000053,
+        "p95": 4257.515500000009
+      },
+      "promptTokens": 19397,
+      "completionTokens": 2220
+    }
+  },
+  "bySplit": {
+    "development": {
+      "count": 96,
+      "transport": {
+        "passed": 96,
+        "total": 96
+      },
+      "json": {
+        "passed": 96,
+        "total": 96
+      },
+      "schema": {
+        "passed": 88,
+        "total": 96
+      },
+      "semantic": {
+        "passed": 52,
+        "total": 96
+      },
+      "dsl": {
+        "passed": 96,
+        "total": 96
+      },
+      "engine": {
+        "passed": 96,
+        "total": 96
+      },
+      "joint": {
+        "passed": 50,
+        "total": 96
+      },
+      "normalized": 25,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 92,
+          "total": 96
+        },
+        "visualization": {
+          "passed": 71,
+          "total": 96
+        },
+        "value": {
+          "passed": 93,
+          "total": 96
+        },
+        "unit": {
+          "passed": 90,
+          "total": 96
+        },
+        "progressValue": {
+          "passed": 17,
+          "total": 39
+        },
+        "state": {
+          "passed": 16,
+          "total": 18
+        },
+        "emphasis": {
+          "passed": 6,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 89,
+          "total": 96
+        }
+      },
+      "latencyMs": {
+        "p50": 2433.8552000000054,
+        "p95": 3604.095199999996
+      },
+      "promptTokens": 124363,
+      "completionTokens": 14147
+    },
+    "holdout": {
+      "count": 24,
+      "transport": {
+        "passed": 24,
+        "total": 24
+      },
+      "json": {
+        "passed": 24,
+        "total": 24
+      },
+      "schema": {
+        "passed": 24,
+        "total": 24
+      },
+      "semantic": {
+        "passed": 15,
+        "total": 24
+      },
+      "dsl": {
+        "passed": 24,
+        "total": 24
+      },
+      "engine": {
+        "passed": 24,
+        "total": 24
+      },
+      "joint": {
+        "passed": 15,
+        "total": 24
+      },
+      "normalized": 0,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 21,
+          "total": 24
+        },
+        "visualization": {
+          "passed": 24,
+          "total": 24
+        },
+        "value": {
+          "passed": 24,
+          "total": 24
+        },
+        "unit": {
+          "passed": 21,
+          "total": 24
+        },
+        "actionLabel": {
+          "passed": 19,
+          "total": 24
+        },
+        "state": {
+          "passed": 8,
+          "total": 9
+        },
+        "emphasis": {
+          "passed": 6,
+          "total": 6
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2322.4349000000075,
+        "p95": 2765.4254999999976
+      },
+      "promptTokens": 31152,
+      "completionTokens": 3570
+    }
+  },
+  "boundary": [
+    {
+      "id": "boundary-01",
+      "rawPlan": {
+        "domain": "energy",
+        "state": "informative",
+        "emphasis": "standard",
+        "title": "手机电量",
+        "visualization": "miniProgress",
+        "icon": "battery",
+        "value": "18",
+        "unit": "%",
+        "label": "电量百分比",
+        "detail": "当前电量为18%",
+        "progressValue": 18,
+        "actionLabel": "",
+        "actionEvent": "",
+        "confidence": 1,
+        "rationale": [
+          "主题为电池状态",
+          "使用miniProgress表示电量百分比",
+          "信息层级为普通数值",
+          "仅展示无需操作"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionLabel: minLength",
+        "$.actionEvent: pattern"
+      ],
+      "note": "当前协议强制按钮，不能忠实表示无操作需求"
+    },
+    {
+      "id": "boundary-03",
+      "rawPlan": {
+        "domain": "system",
+        "state": "warning",
+        "emphasis": "high",
+        "title": "电量不足",
+        "visualization": "heroMetric",
+        "icon": "battery",
+        "value": "低电量",
+        "unit": "",
+        "label": "手机电量",
+        "detail": "手机电量不足，建议充电",
+        "progressValue": null,
+        "actionLabel": "立即充电",
+        "actionEvent": "startCharging",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为系统状态",
+          "电量不足属于警告状态",
+          "使用heroMetric显示普通数值",
+          "提供充电操作"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "不得编造具体电量百分比"
+    },
+    {
+      "id": "boundary-04",
+      "rawPlan": {
+        "domain": "generic",
+        "state": "warning",
+        "emphasis": "high",
+        "title": "电量异常",
+        "visualization": "progressRing",
+        "icon": "battery",
+        "value": "18%",
+        "unit": "%",
+        "label": "电量显示冲突",
+        "detail": "手机电量显示为18%和82%，存在矛盾",
+        "progressValue": 18,
+        "actionLabel": "检查电量",
+        "actionEvent": "checkBattery",
+        "confidence": 0.9,
+        "rationale": [
+          "电量显示存在矛盾，需核实真实状态",
+          "使用progressRing表示评分或百分比",
+          "domain为generic以覆盖非特定领域问题",
+          "state设为warning强调异常情况"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "不得擅自选定确定值"
+    },
+    {
+      "id": "boundary-05",
+      "rawPlan": {
+        "domain": "generic",
+        "state": "informative",
+        "emphasis": "standard",
+        "title": "秋日诗情",
+        "visualization": "heroMetric",
+        "icon": "sparkles",
+        "value": "秋风送爽叶纷飞，金菊绽放映斜晖。",
+        "unit": "",
+        "label": "秋日诗句",
+        "detail": "描绘秋天的景色与情感",
+        "progressValue": null,
+        "actionLabel": "查看更多",
+        "actionEvent": "viewMorePoems",
+        "confidence": 0.95,
+        "rationale": [
+          "主题为秋天，属于通用领域",
+          "内容为诗句，用于展示信息",
+          "使用sparkles图标表示创意和美感",
+          "提供查看更多操作以扩展内容"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "非卡片需求；当前协议没有拒绝状态"
+    },
+    {
+      "id": "boundary-02",
+      "note": "当前语义计划只有一个主指标"
+    },
+    {
+      "id": "boundary-06",
+      "rawPlan": {
+        "domain": "energy",
+        "state": "warning",
+        "emphasis": "high",
+        "title": "电量低",
+        "visualization": "miniProgress",
+        "icon": "battery",
+        "value": "18",
+        "unit": "%",
+        "label": "手机电量",
+        "detail": "当前电量为18%",
+        "progressValue": 18,
+        "actionLabel": "充电",
+        "actionEvent": "startCharging",
+        "confidence": 1,
+        "rationale": [
+          "主题为电池状态",
+          "电量低于20%属于警告状态",
+          "使用miniProgress表示百分比进度",
+          "充电是用户需要的操作"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "不应出现HTML/CSS或协议外字段"
+    },
+    {
+      "id": "boundary-08",
+      "rawPlan": {
+        "domain": "productivity",
+        "state": "informative",
+        "emphasis": "standard",
+        "title": "会议时间更新",
+        "visualization": "heroMetric",
+        "icon": "calendar",
+        "value": "16:30",
+        "unit": "",
+        "label": "新时间",
+        "detail": "原定15:00的会议已调整为16:30",
+        "progressValue": null,
+        "actionLabel": "查看日程",
+        "actionEvent": "viewSchedule",
+        "confidence": 1,
+        "rationale": [
+          "领域为生产力相关事项",
+          "状态为一般信息",
+          "使用heroMetric展示时间变更"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "应提取16:30而不是15:00"
+    },
+    {
+      "id": "boundary-07",
+      "rawPlan": {
+        "domain": "system",
+        "state": "warning",
+        "emphasis": "high",
+        "title": "内存占用",
+        "visualization": "heroMetric",
+        "icon": "navigation",
+        "value": "18%",
+        "unit": "%",
+        "label": "内存使用率",
+        "detail": "当前内存占用为18%，建议清理以释放空间",
+        "progressValue": null,
+        "actionLabel": "清理内存",
+        "actionEvent": "cleanMemory",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为系统状态",
+          "内存占用18%属于警告状态",
+          "使用heroMetric展示普通数值",
+          "提供清理内存的操作选项"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "应理解为system内存场景"
+    },
+    {
+      "id": "boundary-10",
+      "rawPlan": {
+        "domain": "generic",
+        "state": "informative",
+        "emphasis": "standard",
+        "title": "照片预览",
+        "visualization": "heroMetric",
+        "icon": "check",
+        "value": "photo.jpg",
+        "unit": "",
+        "label": "照片地址",
+        "detail": "照片存储路径为/photo.jpg",
+        "progressValue": null,
+        "actionLabel": "查看照片",
+        "actionEvent": "viewPhoto",
+        "confidence": 1,
+        "rationale": [
+          "照片地址直接提供",
+          "无具体数值或状态需展示",
+          "使用通用图标和信息展示"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "完整DSL支持图片，当前语义计划不支持"
+    },
+    {
+      "id": "boundary-09",
+      "rawPlan": {
+        "domain": "fitness",
+        "state": "good",
+        "emphasis": "high",
+        "title": "运动超额完成",
+        "visualization": "miniProgress",
+        "icon": "check",
+        "value": "120",
+        "unit": "%",
+        "label": "目标完成度",
+        "detail": "实际完成120%",
+        "progressValue": 120,
+        "actionLabel": "查看详情",
+        "actionEvent": "openDetail",
+        "confidence": 1,
+        "rationale": [
+          "运动目标完成度为120%，属于超额完成",
+          "使用miniProgress展示百分比进度",
+          "状态为good表示良好完成",
+          "actionEvent用于跳转查看详情"
+        ]
+      },
+      "schemaErrors": [
+        "$.progressValue: anyOf"
+      ],
+      "note": "进度上限100与显示120%需区分"
+    },
+    {
+      "id": "boundary-11",
+      "rawPlan": {
+        "domain": "energy",
+        "state": "informative",
+        "emphasis": "standard",
+        "title": "电池电量",
+        "visualization": "miniProgress",
+        "icon": "battery",
+        "value": "18",
+        "unit": "%",
+        "label": "电量百分比",
+        "detail": "当前电量为18%",
+        "progressValue": 18,
+        "actionLabel": "查看电池详情",
+        "actionEvent": "openBatteryDetail",
+        "confidence": 1,
+        "rationale": [
+          "主题为电池电量，属于energy领域",
+          "数据类型为百分比，使用miniProgress可视化",
+          "状态为正常信息，使用informative状态",
+          "操作为查看电池详情，对应openBatteryDetail事件"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "不能把被否定动作变为按钮"
+    },
+    {
+      "id": "boundary-12",
+      "rawPlan": {
+        "domain": "wellness",
+        "state": "informative",
+        "emphasis": "standard",
+        "title": "心率数据缺失",
+        "visualization": "heroMetric",
+        "icon": "check",
+        "value": "缺失",
+        "unit": "",
+        "label": "心率",
+        "detail": "当前心率数据缺失，无法显示具体数值。",
+        "progressValue": null,
+        "actionLabel": "查看详情",
+        "actionEvent": "viewDetail",
+        "confidence": 1,
+        "rationale": [
+          "领域为健康监测",
+          "状态为信息提示",
+          "使用heroMetric展示文本状态",
+          "不猜测缺失值"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "需要缺失数据表示，不能虚构健康数值"
+    }
+  ],
+  "failures": [
+    {
+      "id": "core-02-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-01-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-02-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-02-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-03-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-03-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-03-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-04-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization"
+      ]
+    },
+    {
+      "id": "core-04-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization"
+      ]
+    },
+    {
+      "id": "core-04-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization"
+      ]
+    },
+    {
+      "id": "core-05-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-07-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "value"
+      ]
+    },
+    {
+      "id": "core-07-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "value"
+      ]
+    },
+    {
+      "id": "core-07-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "value"
+      ]
+    },
+    {
+      "id": "core-08-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-08-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-08-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-11-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-12-3",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-13-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-13-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-13-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-15-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-21-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-21-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-21-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-24-1",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-24-2",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-24-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-26-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "state"
+      ]
+    },
+    {
+      "id": "core-26-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-27-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-27-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-27-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-30-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-30-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-30-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit",
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-31-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-32-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-32-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-32-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-34-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-35-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-36-1",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-36-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-36-3",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-38-1",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-38-2",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-38-3",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-39-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-39-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-39-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-40-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-40-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-40-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "domain",
+        "actionLabel"
+      ]
+    }
+  ]
+}

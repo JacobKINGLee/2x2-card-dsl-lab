@@ -1,0 +1,26 @@
+{
+  "startedAt": "2026-09-07T02:37:25.764Z",
+  "provider": "local",
+  "model": "deterministic-rules",
+  "endpoint": null,
+  "concurrency": 1,
+  "retries": 0,
+  "fallback": false,
+  "sampleCount": 132,
+  "datasetHash": "f50d134264db772b456d3b25c00679a6722af2c528b75bdc57d63e893a879ce3",
+  "sourceHashes": {
+    "experiments/dataset.mjs": "16c983d8e4cd4a09e2f4384f9aa5db62983f1608e9396c60b934ebe512d8eced",
+    "experiments/scoring.mjs": "3a6fb3a76dba8790ae1b54b51f1bf42476a9b58f2319f68169c823477ef58178",
+    "app/semantic-model.ts": "d3575ed3a4e22c5c8f085496d549f25ef7a77d9d21595fb726d1466155539522",
+    "app/semantic-interpreter.ts": "8b52c9112d4447f2a346eaae5ce0a4f66b7d7c885b162925842d6aa16f9b9242",
+    "app/layout-engine.ts": "8f37d703664fb1cc6484863dc21933c249baab7eb769145ff6bdc4686c82b6d4",
+    "app/visual-resolver.ts": "e8cbd4c0f4b342e591f7bc98c0dbf218cc78789c3006ccaf1bc7f5f233d89bbb"
+  },
+  "requestTemplate": null,
+  "limitations": [
+    "Cloud API, not on-device inference",
+    "Estimated font metrics; no browser visual QA",
+    "Automated fact assertions, not full human semantic review",
+    "40 correlated semantic families; not 120 independent tasks"
+  ]
+}

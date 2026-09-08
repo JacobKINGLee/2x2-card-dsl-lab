@@ -1,0 +1,174 @@
+{
+  "completedAt": "2026-09-07T12:47:25.427Z",
+  "expected": 12,
+  "completed": 12,
+  "transport": {
+    "passed": 12,
+    "total": 12
+  },
+  "json": {
+    "passed": 12,
+    "total": 12
+  },
+  "schema": {
+    "passed": 12,
+    "total": 12
+  },
+  "semanticUnderstanding": {
+    "passed": 12,
+    "total": 12
+  },
+  "ruleDecision": {
+    "passed": 12,
+    "total": 12
+  },
+  "ruleOnly": {
+    "passed": 12,
+    "total": 12
+  },
+  "correctCards": {
+    "passed": 8,
+    "total": 12
+  },
+  "incorrectCards": {
+    "passed": 0,
+    "total": 12
+  },
+  "appropriateNonReady": {
+    "passed": 4,
+    "total": 12
+  },
+  "deliverable": {
+    "passed": 8,
+    "total": 12
+  },
+  "byCategory": {
+    "fact-only": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "registered-action": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "specific-negation": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "duration": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "fact-correction": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "invalid-measurement": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "long-required-text": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "parallel-metrics": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "scaled-score": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "conflicting-fact": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "non-card": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "verified-image": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    }
+  },
+  "latencyMs": {
+    "p50": 0.6123999999999796,
+    "p95": 3.0025000000000546
+  },
+  "promptTokens": 0,
+  "completionTokens": 0,
+  "failures": []
+}

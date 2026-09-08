@@ -1,0 +1,6 @@
+{
+  "name": "replace-with-frozen-independent-set-name",
+  "independent": false,
+  "purpose": "Duplicate this file, add independently authored and audited samples, then set independent=true before a conclusion run.",
+  "samples": []
+}

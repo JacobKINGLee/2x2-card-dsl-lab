@@ -1,0 +1,304 @@
+{
+  "completedAt": "2026-09-07T02:37:19.884Z",
+  "expected": 3,
+  "completed": 3,
+  "core": {
+    "count": 3,
+    "transport": {
+      "passed": 3,
+      "total": 3
+    },
+    "json": {
+      "passed": 3,
+      "total": 3
+    },
+    "schema": {
+      "passed": 0,
+      "total": 3
+    },
+    "semantic": {
+      "passed": 0,
+      "total": 3
+    },
+    "dsl": {
+      "passed": 3,
+      "total": 3
+    },
+    "engine": {
+      "passed": 3,
+      "total": 3
+    },
+    "joint": {
+      "passed": 0,
+      "total": 3
+    },
+    "normalized": 3,
+    "layoutRepaired": 0,
+    "assertions": {
+      "domain": {
+        "passed": 0,
+        "total": 3
+      },
+      "visualization": {
+        "passed": 0,
+        "total": 3
+      },
+      "value": {
+        "passed": 3,
+        "total": 3
+      },
+      "unit": {
+        "passed": 3,
+        "total": 3
+      },
+      "progressValue": {
+        "passed": 3,
+        "total": 3
+      },
+      "state": {
+        "passed": 0,
+        "total": 3
+      },
+      "emphasis": {
+        "passed": 3,
+        "total": 3
+      },
+      "actionLabel": {
+        "passed": 3,
+        "total": 3
+      }
+    },
+    "latencyMs": {
+      "p50": 2514.4105,
+      "p95": 3980.1085999999996
+    },
+    "promptTokens": 2496,
+    "completionTokens": 463
+  },
+  "byDomain": {
+    "energy": {
+      "count": 3,
+      "transport": {
+        "passed": 3,
+        "total": 3
+      },
+      "json": {
+        "passed": 3,
+        "total": 3
+      },
+      "schema": {
+        "passed": 0,
+        "total": 3
+      },
+      "semantic": {
+        "passed": 0,
+        "total": 3
+      },
+      "dsl": {
+        "passed": 3,
+        "total": 3
+      },
+      "engine": {
+        "passed": 3,
+        "total": 3
+      },
+      "joint": {
+        "passed": 0,
+        "total": 3
+      },
+      "normalized": 3,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 0,
+          "total": 3
+        },
+        "visualization": {
+          "passed": 0,
+          "total": 3
+        },
+        "value": {
+          "passed": 3,
+          "total": 3
+        },
+        "unit": {
+          "passed": 3,
+          "total": 3
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        },
+        "state": {
+          "passed": 0,
+          "total": 3
+        },
+        "emphasis": {
+          "passed": 3,
+          "total": 3
+        },
+        "actionLabel": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2514.4105,
+        "p95": 3980.1085999999996
+      },
+      "promptTokens": 2496,
+      "completionTokens": 463
+    }
+  },
+  "bySplit": {
+    "development": {
+      "count": 3,
+      "transport": {
+        "passed": 3,
+        "total": 3
+      },
+      "json": {
+        "passed": 3,
+        "total": 3
+      },
+      "schema": {
+        "passed": 0,
+        "total": 3
+      },
+      "semantic": {
+        "passed": 0,
+        "total": 3
+      },
+      "dsl": {
+        "passed": 3,
+        "total": 3
+      },
+      "engine": {
+        "passed": 3,
+        "total": 3
+      },
+      "joint": {
+        "passed": 0,
+        "total": 3
+      },
+      "normalized": 3,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 0,
+          "total": 3
+        },
+        "visualization": {
+          "passed": 0,
+          "total": 3
+        },
+        "value": {
+          "passed": 3,
+          "total": 3
+        },
+        "unit": {
+          "passed": 3,
+          "total": 3
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        },
+        "state": {
+          "passed": 0,
+          "total": 3
+        },
+        "emphasis": {
+          "passed": 3,
+          "total": 3
+        },
+        "actionLabel": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2514.4105,
+        "p95": 3980.1085999999996
+      },
+      "promptTokens": 2496,
+      "completionTokens": 463
+    },
+    "holdout": {
+      "count": 0,
+      "transport": {
+        "passed": 0,
+        "total": 0
+      },
+      "json": {
+        "passed": 0,
+        "total": 0
+      },
+      "schema": {
+        "passed": 0,
+        "total": 0
+      },
+      "semantic": {
+        "passed": 0,
+        "total": 0
+      },
+      "dsl": {
+        "passed": 0,
+        "total": 0
+      },
+      "engine": {
+        "passed": 0,
+        "total": 0
+      },
+      "joint": {
+        "passed": 0,
+        "total": 0
+      },
+      "normalized": 0,
+      "layoutRepaired": 0,
+      "assertions": {},
+      "latencyMs": {
+        "p50": null,
+        "p95": null
+      },
+      "promptTokens": 0,
+      "completionTokens": 0
+    }
+  },
+  "boundary": [],
+  "failures": [
+    {
+      "id": "core-01-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    },
+    {
+      "id": "core-01-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    },
+    {
+      "id": "core-01-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    }
+  ]
+}

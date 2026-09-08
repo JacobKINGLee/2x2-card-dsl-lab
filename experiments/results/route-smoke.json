@@ -1,0 +1,76 @@
+{
+  "date": "2026-09-07T02:47:00.675Z",
+  "status": 200,
+  "latencyMs": 3834.7812999999996,
+  "result": {
+    "source": "llm",
+    "provider": "aliyun",
+    "model": "qwen3-8b",
+    "notice": "阿里云 Qwen 负责语义理解；这是云端小模型实验，布局和视觉由确定性引擎生成。",
+    "plan": {
+      "domain": "energy",
+      "state": "warning",
+      "emphasis": "high",
+      "title": "电量低",
+      "visualization": "miniProgress",
+      "icon": "battery",
+      "value": "18",
+      "unit": "%",
+      "label": "剩余电量",
+      "detail": "预计还能使用2小时",
+      "progressValue": 18,
+      "actionLabel": "开启省电模式",
+      "actionEvent": "enablePowerSaving",
+      "confidence": 0.95,
+      "rationale": [
+        "主题为电池状态",
+        "电量低于20%属于警告状态",
+        "使用miniProgress表示百分比",
+        "提供开启省电模式的操作"
+      ]
+    },
+    "dsl": {
+      "version": "4.0",
+      "type": "adaptive-card",
+      "context": {
+        "domain": "energy",
+        "state": "warning",
+        "emphasis": "high"
+      },
+      "elements": [
+        {
+          "id": "title",
+          "type": "text",
+          "role": "title",
+          "text": "电量低",
+          "priority": 95
+        },
+        {
+          "id": "app",
+          "type": "appIcon",
+          "icon": "battery",
+          "label": "电量低服务",
+          "priority": 82
+        },
+        {
+          "id": "primary",
+          "icon": "battery",
+          "label": "剩余电量",
+          "detail": "预计还能使用2小时",
+          "priority": 100,
+          "type": "miniProgress",
+          "value": 18,
+          "displayValue": "18%"
+        },
+        {
+          "id": "action",
+          "type": "capsuleButton",
+          "icon": "zap",
+          "label": "开启省电模式",
+          "event": "enablePowerSaving",
+          "priority": 100
+        }
+      ]
+    }
+  }
+}

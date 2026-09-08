@@ -1,0 +1,187 @@
+{
+  "completedAt": "2026-09-07T12:46:32.139Z",
+  "expected": 12,
+  "completed": 12,
+  "transport": {
+    "passed": 12,
+    "total": 12
+  },
+  "json": {
+    "passed": 12,
+    "total": 12
+  },
+  "schema": {
+    "passed": 12,
+    "total": 12
+  },
+  "semanticUnderstanding": {
+    "passed": 11,
+    "total": 12
+  },
+  "ruleDecision": {
+    "passed": 11,
+    "total": 12
+  },
+  "ruleOnly": {
+    "passed": 12,
+    "total": 12
+  },
+  "correctCards": {
+    "passed": 8,
+    "total": 12
+  },
+  "incorrectCards": {
+    "passed": 1,
+    "total": 12
+  },
+  "appropriateNonReady": {
+    "passed": 3,
+    "total": 12
+  },
+  "deliverable": {
+    "passed": 9,
+    "total": 12
+  },
+  "byCategory": {
+    "fact-only": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "registered-action": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "specific-negation": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "duration": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "fact-correction": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "invalid-measurement": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "long-required-text": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "parallel-metrics": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "scaled-score": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "conflicting-fact": {
+      "semantic": {
+        "passed": 0,
+        "total": 1
+      },
+      "decision": {
+        "passed": 0,
+        "total": 1
+      }
+    },
+    "non-card": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    },
+    "verified-image": {
+      "semantic": {
+        "passed": 1,
+        "total": 1
+      },
+      "decision": {
+        "passed": 1,
+        "total": 1
+      }
+    }
+  },
+  "latencyMs": {
+    "p50": 0.6450999999999567,
+    "p95": 2.7232999999999947
+  },
+  "promptTokens": 0,
+  "completionTokens": 0,
+  "failures": [
+    {
+      "id": "cal-10",
+      "semanticAssertions": {
+        "domain": true,
+        "ambiguities": false
+      },
+      "decisionAssertions": {
+        "status": false,
+        "code": false,
+        "delivery": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "startedAt": "2026-09-07T12:46:32.117Z",
+  "provider": "local",
+  "model": "deterministic-local-extractor-v2",
+  "endpoint": null,
+  "protocolVersion": "semantic-v0.2",
+  "policyVersion": "ux-component-v0.1",
+  "dataset": {
+    "name": "semantic-v2-calibration",
+    "independent": false,
+    "purpose": "开发与评分链路校准；禁止作为独立 Qwen 结论数据集"
+  },
+  "concurrency": 1,
+  "retries": 0,
+  "fallback": false,
+  "sampleCount": 12,
+  "datasetHash": "7b671a993428551d77fd48dff49da6ccb3f2466f6a298c55269c512f6f65c9d5",
+  "sourceHashes": {
+    "experiments/scoring.mjs": "9d9048eadb63cea180e47f39f35ffe3e207c56f93c3169fd8e98c04477e34011",
+    "app/semantic-protocol.ts": "69a99ddf4b6e01a979eba9e6659d4ff040d3f068f2d0a0fda563c928485d873c",
+    "app/semantic-model.ts": "edee3f85f0dea04c01c194177aeeb7db1f252f53d51943714a22e242f06d2942",
+    "app/component-decision.ts": "161d4ecd820bfa06fb6d86e13dd3a8a3cd0b43fd2d22d08282198399b108febd",
+    "app/delivery-gate.ts": "60cbc14688f78be1a8233d0d6ab3112515351c1297966c58d38003c049ec9cd5",
+    "app/layout-engine.ts": "8f37d703664fb1cc6484863dc21933c249baab7eb769145ff6bdc4686c82b6d4"
+  },
+  "requestTemplate": null,
+  "limitations": [
+    "Cloud API, not on-device inference",
+    "Independent flag is dataset-author attestation",
+    "Automated assertions require human audit",
+    "Layout uses current project text measurement path"
+  ]
+}

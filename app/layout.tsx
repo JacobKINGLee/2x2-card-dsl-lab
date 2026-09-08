@@ -4,10 +4,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://card-dsl-lab-2x2.caicaiqwe9.chatgpt.site"),
   title: "2×2 Card DSL Lab",
-  description: "用UX约束引擎把任意少量语义元素转换为可校验的2×2卡片坐标布局。",
+  description: "把任意自然语言内容编译为 Semantic DSL，再通过确定性约束引擎生成可校验的2×2卡片。",
   openGraph: {
     title: "2×2 Card DSL Lab",
-    description: "不给模板，只给元素；让UX规则求解出可执行坐标。",
+    description: "内容驱动语义，规则求解设计；生成稳定、可解释的2×2卡片。",
     url: "https://card-dsl-lab-2x2.caicaiqwe9.chatgpt.site",
     type: "website",
     images: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "2×2 Card DSL Lab",
-    description: "不给模板，只给元素；让UX规则求解出可执行坐标。",
+    description: "内容驱动语义，规则求解设计；生成稳定、可解释的2×2卡片。",
     images: ["https://card-dsl-lab-2x2.caicaiqwe9.chatgpt.site/og.png"],
   },
   icons: {

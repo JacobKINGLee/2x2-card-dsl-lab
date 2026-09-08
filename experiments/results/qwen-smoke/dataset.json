@@ -1,0 +1,80 @@
+[
+  {
+    "id": "core-01-1",
+    "family": "family-1",
+    "split": "development",
+    "category": "direct",
+    "scope": "core",
+    "text": "手机电量只剩18%，预计还能使用2小时，提供“开启省电模式”按钮。",
+    "expected": {
+      "domain": "energy",
+      "visualization": "miniProgress",
+      "value": [
+        "18"
+      ],
+      "unit": [
+        "%"
+      ],
+      "actionTerms": [
+        "省电"
+      ],
+      "progressValue": 18,
+      "state": [
+        "warning"
+      ],
+      "emphasis": "high"
+    }
+  },
+  {
+    "id": "core-01-2",
+    "family": "family-1",
+    "split": "development",
+    "category": "conversational",
+    "scope": "core",
+    "text": "帮我做张卡片：手机电量只剩18%，预计还能使用2小时。我希望能点“开启省电模式”。",
+    "expected": {
+      "domain": "energy",
+      "visualization": "miniProgress",
+      "value": [
+        "18"
+      ],
+      "unit": [
+        "%"
+      ],
+      "actionTerms": [
+        "省电"
+      ],
+      "progressValue": 18,
+      "state": [
+        "warning"
+      ],
+      "emphasis": "high"
+    }
+  },
+  {
+    "id": "core-01-3",
+    "family": "family-1",
+    "split": "development",
+    "category": "reordered",
+    "scope": "core",
+    "text": "操作入口要能开启省电模式。卡片主要告诉我：手机电量只剩18%，预计还能使用2小时。请不要把操作说明当成核心指标。",
+    "expected": {
+      "domain": "energy",
+      "visualization": "miniProgress",
+      "value": [
+        "18"
+      ],
+      "unit": [
+        "%"
+      ],
+      "actionTerms": [
+        "省电"
+      ],
+      "progressValue": 18,
+      "state": [
+        "warning"
+      ],
+      "emphasis": "high"
+    }
+  }
+]

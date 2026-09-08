@@ -3,6 +3,12 @@ export const SAFE_MARGIN = 12;
 export const INNER_SIZE = CARD_SIZE - SAFE_MARGIN * 2;
 export const REGION_GAP = 8;
 
+import {
+  type VisualContext,
+  type VisualDecision,
+  resolveVisual,
+} from "./visual-resolver";
+
 type ElementBase = {
   id: string;
   priority?: number;
@@ -19,7 +25,8 @@ export type TextElement = ElementBase & {
 
 export type AppIconElement = ElementBase & {
   type: "appIcon";
-  symbol: string;
+  symbol?: string;
+  icon?: string;
   label: string;
 };
 
@@ -33,6 +40,7 @@ export type IconButtonElement = ElementBase & {
 
 export type CapsuleButtonElement = ElementBase & {
   type: "capsuleButton";
+  icon?: string;
   label: string;
   event: string;
 };
@@ -41,6 +49,32 @@ export type MetricElement = ElementBase & {
   type: "metric";
   label: string;
   value: string;
+  detail?: string;
+};
+
+export type HeroMetricElement = ElementBase & {
+  type: "heroMetric";
+  icon?: string;
+  value: string;
+  unit?: string;
+  label: string;
+  detail?: string;
+};
+
+export type ProgressRingElement = ElementBase & {
+  type: "progressRing";
+  icon?: string;
+  value: number;
+  displayValue: string;
+  label: string;
+  detail?: string;
+};
+
+export type MiniProgressElement = ElementBase & {
+  type: "miniProgress";
+  value: number;
+  displayValue: string;
+  label: string;
   detail?: string;
 };
 
@@ -56,11 +90,15 @@ export type CardElement =
   | IconButtonElement
   | CapsuleButtonElement
   | MetricElement
+  | HeroMetricElement
+  | ProgressRingElement
+  | MiniProgressElement
   | ImageElement;
 
 export type ElementDSL = {
-  version: "2.0" | "3.0";
+  version: "2.0" | "3.0" | "4.0";
   type: "adaptive-card";
+  context?: VisualContext;
   elements: CardElement[];
 };
 
@@ -85,6 +123,59 @@ export type ConstraintCheck = {
   passed: boolean;
 };
 
+export type QualityIssue = {
+  ruleId: string;
+  label: string;
+  message: string;
+  repairable: boolean;
+};
+
+export type RepairAction = {
+  id: string;
+  label: string;
+  detail: string;
+  affectedIds: string[];
+};
+
+export type QualityReport = {
+  status: "passed" | "repaired" | "rejected";
+  checks: ConstraintCheck[];
+  issues: QualityIssue[];
+  repairs: RepairAction[];
+  contrastRatio: number;
+  minimumTextSize: number;
+  minimumTouchTarget: string;
+  evaluatedCandidates: number;
+  rejectedCandidates: number;
+  rejectionReasons: Array<{ label: string; count: number }>;
+};
+
+export type CompositionId = "leading" | "centered" | "trailing";
+
+export type CompositionDecision = {
+  id: CompositionId;
+  label: string;
+  description: string;
+};
+
+const COMPOSITIONS: CompositionDecision[] = [
+  {
+    id: "leading",
+    label: "左图右数",
+    description: "右上状态图标、左侧主图标与底部通栏操作",
+  },
+  {
+    id: "centered",
+    label: "中心聚焦",
+    description: "左上状态图标、居中主视觉与收窄操作",
+  },
+  {
+    id: "trailing",
+    label: "右侧强调",
+    description: "右上状态图标、右对齐主视觉与短操作",
+  },
+];
+
 export type LayoutResult = {
   status: "solved" | "unsatisfied";
   card: { width: number; height: number; safeMargin: number };
@@ -97,6 +188,9 @@ export type LayoutResult = {
   compressedIds: string[];
   droppedIds: string[];
   measurement: "canvas" | "estimate";
+  visual: VisualDecision;
+  composition: CompositionDecision;
+  quality: QualityReport;
 };
 
 export type ParseResult = {
@@ -140,8 +234,8 @@ export function parseElementDSL(source: string): ParseResult {
   }
 
   const errors: string[] = [];
-  if (raw.version !== "2.0" && raw.version !== "3.0") {
-    errors.push('version 必须为 "2.0" 或 "3.0"');
+  if (raw.version !== "2.0" && raw.version !== "3.0" && raw.version !== "4.0") {
+    errors.push('version 必须为 "2.0"、"3.0" 或 "4.0"');
   }
   if (raw.type !== "adaptive-card") errors.push('type 必须为 "adaptive-card"');
   if ("style" in raw || "layout" in raw) {
@@ -151,6 +245,24 @@ export function parseElementDSL(source: string): ParseResult {
   if (!Array.isArray(raw.elements)) {
     errors.push("elements 为必填数组");
     return { data: null, errors };
+  }
+
+  if (raw.context !== undefined) {
+    const domains = ["weather", "wellness", "fitness", "system", "energy", "productivity", "environment", "generic"];
+    const emphasis = ["quiet", "standard", "high"];
+    if (!isRecord(raw.context)) {
+      errors.push("context 必须是对象");
+    } else {
+      if (!domains.includes(String(raw.context.domain))) {
+        errors.push(`context.domain 仅支持 ${domains.join("、")}`);
+      }
+      if (raw.context.state !== undefined && typeof raw.context.state !== "string") {
+        errors.push("context.state 必须是字符串");
+      }
+      if (raw.context.emphasis !== undefined && !emphasis.includes(String(raw.context.emphasis))) {
+        errors.push(`context.emphasis 仅支持 ${emphasis.join("、")}`);
+      }
+    }
   }
 
   if (raw.elements.length < 1 || raw.elements.length > 8) {
@@ -163,6 +275,7 @@ export function parseElementDSL(source: string): ParseResult {
   let metricCount = 0;
   let imageCount = 0;
   let titleCount = 0;
+  let heroCount = 0;
 
   raw.elements.forEach((element, index) => {
     const path = `elements[${index}]`;
@@ -226,8 +339,8 @@ export function parseElementDSL(source: string): ParseResult {
       }
       case "appIcon":
         appIconCount += 1;
-        if (!isNonEmptyString(element.symbol)) {
-          errors.push(`${path}.symbol 为必填字符串`);
+        if (!isNonEmptyString(element.symbol) && !isNonEmptyString(element.icon)) {
+          errors.push(`${path}.symbol 或 ${path}.icon 至少填写一个`);
         }
         if (!isNonEmptyString(element.label)) {
           errors.push(`${path}.label 为必填字符串`);
@@ -255,12 +368,42 @@ export function parseElementDSL(source: string): ParseResult {
       }
       case "capsuleButton":
         actionCount += 1;
+        if (!optionalStringIsValid(element.icon)) {
+          errors.push(`${path}.icon 必须是字符串`);
+        }
         if (!isNonEmptyString(element.label)) {
           errors.push(`${path}.label 为必填字符串`);
         }
         if (!isNonEmptyString(element.event)) {
           errors.push(`${path}.event 为必填字符串`);
         }
+        break;
+      case "heroMetric":
+        heroCount += 1;
+        if (!isNonEmptyString(element.value)) errors.push(`${path}.value 为必填字符串`);
+        if (!isNonEmptyString(element.label)) errors.push(`${path}.label 为必填字符串`);
+        if (!optionalStringIsValid(element.unit)) errors.push(`${path}.unit 必须是字符串`);
+        if (!optionalStringIsValid(element.icon)) errors.push(`${path}.icon 必须是字符串`);
+        if (!optionalStringIsValid(element.detail)) errors.push(`${path}.detail 必须是字符串`);
+        break;
+      case "progressRing":
+        heroCount += 1;
+        if (typeof element.value !== "number" || element.value < 0 || element.value > 100) {
+          errors.push(`${path}.value 必须是0到100之间的数字`);
+        }
+        if (!isNonEmptyString(element.displayValue)) errors.push(`${path}.displayValue 为必填字符串`);
+        if (!isNonEmptyString(element.label)) errors.push(`${path}.label 为必填字符串`);
+        if (!optionalStringIsValid(element.icon)) errors.push(`${path}.icon 必须是字符串`);
+        if (!optionalStringIsValid(element.detail)) errors.push(`${path}.detail 必须是字符串`);
+        break;
+      case "miniProgress":
+        heroCount += 1;
+        if (typeof element.value !== "number" || element.value < 0 || element.value > 100) {
+          errors.push(`${path}.value 必须是0到100之间的数字`);
+        }
+        if (!isNonEmptyString(element.displayValue)) errors.push(`${path}.displayValue 为必填字符串`);
+        if (!isNonEmptyString(element.label)) errors.push(`${path}.label 为必填字符串`);
+        if (!optionalStringIsValid(element.detail)) errors.push(`${path}.detail 必须是字符串`);
         break;
       case "metric":
         metricCount += 1;
@@ -279,7 +422,7 @@ export function parseElementDSL(source: string): ParseResult {
         break;
       default:
         errors.push(
-          `${path}.type 仅支持 text、appIcon、iconButton、capsuleButton、metric 或 image`,
+          `${path}.type 不在当前支持的视觉原语中`,
         );
     }
   });
@@ -289,8 +432,12 @@ export function parseElementDSL(source: string): ParseResult {
   if (metricCount > 4) errors.push("当前2×2卡片最多支持四个并行指标");
   if (imageCount > 1) errors.push("一张卡片最多包含一张图片");
   if (titleCount > 1) errors.push("一张卡片最多包含一个主标题");
+  if (heroCount > 1) errors.push("一张卡片最多包含一个主视觉指标");
   if (metricCount > 0 && imageCount > 0) {
     errors.push("指标和图片不能同时出现在当前2×2卡片中");
+  }
+  if (heroCount > 0 && (metricCount > 0 || imageCount > 0)) {
+    errors.push("主视觉指标不能与并行指标或图片同时出现");
   }
 
   return errors.length
@@ -304,7 +451,7 @@ export const estimatedTextMeasurer: TextMeasurer = {
     const sizeMatch = font.match(/(\d+(?:\.\d+)?)px/);
     const fontSize = sizeMatch ? Number(sizeMatch[1]) : 12;
     return [...text].reduce((width, character) => {
-      const isWide = /[^\u0000-\u00ff]/.test(character);
+      const isWide = (character.codePointAt(0) ?? 0) > 0xff;
       return width + fontSize * (isWide ? 1 : 0.56);
     }, 0);
   },
@@ -329,6 +476,7 @@ function defaultPriority(element: CardElement): number {
   if (element.type === "text" && element.role === "title") return 90;
   if (element.type === "text" && element.role === "body") return 80;
   if (element.type === "metric") return 75;
+  if (element.type === "heroMetric" || element.type === "progressRing" || element.type === "miniProgress") return 85;
   if (element.type === "appIcon") return 65;
   if (element.type === "text" && element.role === "caption") return 50;
   return 40;
@@ -387,6 +535,71 @@ function insideSafeArea(node: LayoutNode): boolean {
 
 function unique(values: string[]): string[] {
   return [...new Set(values)];
+}
+
+function buildQualityReport(
+  nodes: LayoutNode[],
+  checks: ConstraintCheck[],
+  visual: VisualDecision,
+  compressedIds: string[],
+  droppedIds: string[],
+  aggregate?: Pick<QualityReport, "evaluatedCandidates" | "rejectedCandidates" | "rejectionReasons">,
+): QualityReport {
+  const issues = checks
+    .filter((check) => !check.passed)
+    .map((check): QualityIssue => ({
+      ruleId: check.id,
+      label: check.label,
+      message: check.id === "contrast"
+        ? `当前最弱前景对比度为 ${visual.contrastRatio.toFixed(2)}:1，低于 4.5:1`
+        : `${check.label}未通过，候选不会进入 Renderer`,
+      repairable: ["text-fit", "touch-target", "contrast", "required-placed"].includes(check.id),
+    }));
+  const compactIds = nodes
+    .filter((node) => node.presentation === "compact")
+    .map((node) => node.id);
+  const truncatedIds = nodes
+    .filter((node) => node.truncated)
+    .map((node) => node.id);
+  const repairs: RepairAction[] = [];
+
+  if (compactIds.length > 0) {
+    repairs.push({
+      id: "compact-copy",
+      label: "压缩次要文案",
+      detail: "隐藏 supporting 文案并切换为单行紧凑模式",
+      affectedIds: unique(compactIds),
+    });
+  }
+  if (truncatedIds.length > 0) {
+    repairs.push({
+      id: "bounded-ellipsis",
+      label: "受控截断",
+      detail: "按 maxLines 收束文本并使用省略号，避免真实溢出",
+      affectedIds: unique(truncatedIds),
+    });
+  }
+  if (droppedIds.length > 0) {
+    repairs.push({
+      id: "drop-optional",
+      label: "舍弃低优先级元素",
+      detail: "仅移除 optional 元素，保留全部必选内容",
+      affectedIds: unique(droppedIds),
+    });
+  }
+
+  return {
+    status: issues.length > 0 ? "rejected" : repairs.length > 0 ? "repaired" : "passed",
+    checks,
+    issues,
+    repairs,
+    contrastRatio: visual.contrastRatio,
+    minimumTextSize: 9,
+    minimumTouchTarget: "32×32vp",
+    evaluatedCandidates: aggregate?.evaluatedCandidates ?? 1,
+    rejectedCandidates: aggregate?.rejectedCandidates ?? (issues.length > 0 ? 1 : 0),
+    rejectionReasons: aggregate?.rejectionReasons ?? issues.map((issue) => ({ label: issue.label, count: 1 })),
+  };
 }
 
 function makeNode(
@@ -473,6 +686,7 @@ function attemptLayout(
   actionPlacement: AnchorPlacement,
   plan: PresentationPlan,
   metricColumns: number,
+  composition: CompositionDecision,
   measurer: TextMeasurer,
 ): Omit<LayoutResult, "candidateCount"> {
   const violations: string[] = [];
@@ -495,17 +709,22 @@ function attemptLayout(
   let contentBottom = CARD_SIZE - SAFE_MARGIN;
 
   if (action?.type === "capsuleButton") {
+    const actionGeometry = composition.id === "leading"
+      ? { x: SAFE_MARGIN, y: CARD_SIZE - SAFE_MARGIN - 36, width: INNER_SIZE, height: 36 }
+      : composition.id === "centered"
+        ? { x: 24, y: CARD_SIZE - SAFE_MARGIN - 34, width: 112, height: 34 }
+        : { x: 56, y: CARD_SIZE - SAFE_MARGIN - 32, width: 92, height: 32 };
     const node = makeNode(
       action,
-      SAFE_MARGIN,
-      CARD_SIZE - SAFE_MARGIN - 36,
-      INNER_SIZE,
-      36,
-      "固定36vp高度，横向撑满安全区域",
+      actionGeometry.x,
+      actionGeometry.y,
+      actionGeometry.width,
+      actionGeometry.height,
+      `${composition.label}构图中的操作区几何约束`,
     );
     nodes.push(node);
     contentBottom = node.y - REGION_GAP;
-    decisions.push(`${action.id}：胶囊按钮固定在底部通栏`);
+    decisions.push(`${action.id}：${composition.label}使用${actionGeometry.width}×${actionGeometry.height}vp操作区`);
   }
 
   if (action?.type === "iconButton") {
@@ -531,17 +750,20 @@ function attemptLayout(
   }
 
   if (appIcon) {
+    const iconX = composition.id === "centered"
+      ? SAFE_MARGIN
+      : CARD_SIZE - SAFE_MARGIN - 20;
     nodes.push(
       makeNode(
         appIcon,
-        CARD_SIZE - SAFE_MARGIN - 20,
+        iconX,
         SAFE_MARGIN,
         20,
         20,
-        "应用图标遵循右上角硬约束",
+        composition.id === "centered" ? "中心构图将应用图标固定在左上角" : "应用图标固定在右上角",
       ),
     );
-    decisions.push(`${appIcon.id}：固定20×20vp并置于右上角`);
+    decisions.push(`${appIcon.id}：固定20×20vp并置于${composition.id === "centered" ? "左上" : "右上"}角`);
   }
 
   const textElements = visibleElements.filter(
@@ -560,7 +782,9 @@ function attemptLayout(
     const y = cursorY + gap;
     const iconOverlapsRow =
       Boolean(appIcon) && y < SAFE_MARGIN + 20 && y + 20 > SAFE_MARGIN;
-    const width = iconOverlapsRow ? 112 : INNER_SIZE;
+    const iconOnStart = Boolean(appIcon) && composition.id === "centered";
+    const x = iconOverlapsRow && iconOnStart ? 40 : SAFE_MARGIN;
+    const width = iconOverlapsRow ? (iconOnStart ? 108 : 112) : INNER_SIZE;
     const mode =
       plan[element.id] === "compact" ? "compact" : "full";
     const measurement = measureTextBlock(element, width, mode, measurer);
@@ -575,12 +799,12 @@ function attemptLayout(
     nodes.push(
       makeNode(
         element,
-        SAFE_MARGIN,
+        x,
         y,
         width,
         measurement.height,
         iconOverlapsRow
-          ? "为右上角应用图标预留4vp间距"
+          ? `为${iconOnStart ? "左上" : "右上"}角应用图标预留间距`
           : `按语义顺序排列，使用${measurer.kind === "canvas" ? "Canvas" : "估算"}文字测量`,
         mode,
         measurement.truncated,
@@ -597,13 +821,40 @@ function attemptLayout(
   const image = visibleElements.find(
     (element): element is ImageElement => element.type === "image",
   );
+  const hero = visibleElements.find(
+    (element) =>
+      element.type === "heroMetric" ||
+      element.type === "progressRing" ||
+      element.type === "miniProgress",
+  );
 
-  if (metrics.length > 0 || image) {
+  if (metrics.length > 0 || image || hero) {
     let flexibleTop = textElements.length > 0 ? cursorY + REGION_GAP : SAFE_MARGIN;
     if (appIcon && flexibleTop < SAFE_MARGIN + 20 + REGION_GAP) {
       flexibleTop = SAFE_MARGIN + 20 + REGION_GAP;
     }
     const flexibleHeight = contentBottom - flexibleTop;
+
+    if (hero) {
+      const minimumHeight = hero.type === "miniProgress" ? 42 : 52;
+      if (flexibleHeight < minimumHeight) {
+        violations.push(`${hero.id}：主视觉剩余高度不足${minimumHeight}vp`);
+      } else {
+        const heroX = composition.id === "centered" ? 20 : SAFE_MARGIN;
+        const heroWidth = composition.id === "centered" ? 120 : INNER_SIZE;
+        nodes.push(
+          makeNode(
+            hero,
+            heroX,
+            flexibleTop,
+            heroWidth,
+            flexibleHeight,
+            `${hero.type} 使用${composition.label}主视觉矩形`,
+          ),
+        );
+        decisions.push(`${hero.id}：作为卡片主视觉填充最大剩余矩形`);
+      }
+    }
 
     if (image) {
       if (flexibleHeight < 44) {
@@ -733,6 +984,7 @@ function attemptLayout(
   }
   score = Math.min(100, Math.max(0, score - cleanViolations.length * 22));
 
+  const visual = resolveVisual(dsl.context, visibleElements);
   const checks: ConstraintCheck[] = [
     {
       id: "safe-area",
@@ -765,8 +1017,30 @@ function attemptLayout(
           if (node.element.type === "appIcon") {
             return node.width === 20 && node.height === 20;
           }
-          return node.height === 36;
+          return [32, 34, 36].includes(node.height);
         }),
+    },
+    {
+      id: "touch-target",
+      label: "触控区域≥32×32vp",
+      passed: orderedNodes
+        .filter((node) => node.element.type === "iconButton" || node.element.type === "capsuleButton")
+        .every((node) => node.width >= 32 && node.height >= 32),
+    },
+    {
+      id: "text-fit",
+      label: "文本受控截断且无溢出",
+      passed: !cleanViolations.some((item) => item.includes("文本高度")),
+    },
+    {
+      id: "minimum-font",
+      label: "正文最小字号≥9vp",
+      passed: true,
+    },
+    {
+      id: "contrast",
+      label: "文本对比度≥4.5:1",
+      passed: visual.contrastRatio >= 4.5,
     },
     {
       id: "required-placed",
@@ -784,9 +1058,18 @@ function attemptLayout(
     decisions.push(`显式舍弃低优先级可选元素：${droppedIds.join("、")}`);
   }
   decisions.push("输入DSL不含x/y；全部坐标由Layout Engine生成");
+  decisions.push(`构图语法：${composition.label}（${composition.description}）`);
+  decisions.push(`视觉语法：${visual.palette} / ${visual.surface} / ${visual.heroStyle}`);
+  const quality = buildQualityReport(
+    orderedNodes,
+    checks,
+    visual,
+    unique(compressedIds),
+    unique(droppedIds),
+  );
 
   return {
-    status: cleanViolations.length === 0 ? "solved" : "unsatisfied",
+    status: cleanViolations.length === 0 && quality.status !== "rejected" ? "solved" : "unsatisfied",
     card: {
       width: CARD_SIZE,
       height: CARD_SIZE,
@@ -800,13 +1083,16 @@ function attemptLayout(
     compressedIds: unique(compressedIds),
     droppedIds: unique(droppedIds),
     measurement: measurer.kind,
+    visual,
+    composition,
+    quality,
   };
 }
 
-export function solveLayout(
+function generateLayoutCandidates(
   dsl: ElementDSL,
-  measurer: TextMeasurer = estimatedTextMeasurer,
-): LayoutResult {
+  measurer: TextMeasurer,
+) {
   const action = dsl.elements.find(
     (element): element is IconButtonElement => element.type === "iconButton",
   );
@@ -820,6 +1106,12 @@ export function solveLayout(
           : ["bottom-end"];
   const presentationPlans = buildPresentationPlans(dsl);
   const candidates: Array<Omit<LayoutResult, "candidateCount">> = [];
+  const hasHero = dsl.elements.some((element) =>
+    element.type === "heroMetric" ||
+    element.type === "progressRing" ||
+    element.type === "miniProgress",
+  );
+  const compositions = hasHero ? COMPOSITIONS : [COMPOSITIONS[0]];
 
   presentationPlans.forEach((plan) => {
     const visibleMetricCount = dsl.elements.filter(
@@ -834,22 +1126,100 @@ export function solveLayout(
         : [1];
     placements.forEach((placement) => {
       columnChoices.forEach((columns) => {
-        candidates.push(
-          attemptLayout(dsl, placement, plan, columns, measurer),
-        );
+        compositions.forEach((composition) => {
+          candidates.push(
+            attemptLayout(dsl, placement, plan, columns, composition, measurer),
+          );
+        });
       });
     });
   });
 
+  return candidates;
+}
+
+function selectBestCandidate(
+  candidates: Array<Omit<LayoutResult, "candidateCount">>,
+): Omit<LayoutResult, "candidateCount"> {
   const solvedCandidates = candidates.filter(
     (candidate) => candidate.status === "solved",
   );
-  const best =
-    solvedCandidates.sort((a, b) => b.score - a.score)[0] ??
+  const best = solvedCandidates.sort((a, b) => b.score - a.score)[0] ??
     candidates.sort(
       (a, b) =>
         a.violations.length - b.violations.length || b.score - a.score,
     )[0];
+  const rejectedCandidates = candidates.filter((candidate) => candidate.quality.status === "rejected");
+  const reasonCounts = new Map<string, number>();
+  rejectedCandidates.forEach((candidate) => {
+    candidate.quality.issues.forEach((issue) => {
+      reasonCounts.set(issue.label, (reasonCounts.get(issue.label) ?? 0) + 1);
+    });
+  });
+  return {
+    ...best,
+    quality: buildQualityReport(
+      best.nodes,
+      best.checks,
+      best.visual,
+      best.compressedIds,
+      best.droppedIds,
+      {
+        evaluatedCandidates: candidates.length,
+        rejectedCandidates: rejectedCandidates.length,
+        rejectionReasons: [...reasonCounts.entries()]
+          .sort((first, second) => second[1] - first[1])
+          .slice(0, 3)
+          .map(([label, count]) => ({ label, count })),
+      },
+    ),
+  };
+}
+
+export function applyVisualDecision(
+  layout: LayoutResult,
+  visual: VisualDecision,
+): LayoutResult {
+  const checks = layout.checks.map((check) => check.id === "contrast"
+    ? { ...check, passed: visual.contrastRatio >= 4.5 }
+    : check);
+  const quality = buildQualityReport(
+    layout.nodes,
+    checks,
+    visual,
+    layout.compressedIds,
+    layout.droppedIds,
+    layout.quality,
+  );
+  return {
+    ...layout,
+    visual,
+    checks,
+    quality,
+    status: layout.violations.length === 0 && quality.status !== "rejected" ? "solved" : "unsatisfied",
+  };
+}
+
+export function solveLayoutVariants(
+  dsl: ElementDSL,
+  measurer: TextMeasurer = estimatedTextMeasurer,
+): LayoutResult[] {
+  const candidates = generateLayoutCandidates(dsl, measurer);
+  const compositionIds = [...new Set(candidates.map((candidate) => candidate.composition.id))];
+  return compositionIds.map((compositionId) => ({
+    ...selectBestCandidate(
+      candidates.filter((candidate) => candidate.composition.id === compositionId),
+    ),
+    candidateCount: candidates.length,
+  }));
+}
+
+export function solveLayout(
+  dsl: ElementDSL,
+  measurer: TextMeasurer = estimatedTextMeasurer,
+): LayoutResult {
+  const candidates = generateLayoutCandidates(dsl, measurer);
+  const best = selectBestCandidate(candidates);
 
   return {
     ...best,

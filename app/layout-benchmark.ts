@@ -11,6 +11,9 @@ export type BenchmarkResult = {
   solved: number;
   successRate: number;
   averageScore: number;
+  averageVisualScore: number;
+  visualContrastPassRate: number;
+  visualStyles: number;
   averageCandidates: number;
   compressedLayouts: number;
   droppedLayouts: number;
@@ -118,7 +121,12 @@ function generateTextScenario(index: number, random: () => number): ElementDSL {
     });
   }
 
-  return { version: "3.0", type: "adaptive-card", elements };
+  return {
+    version: "4.0",
+    type: "adaptive-card",
+    context: { domain: "productivity", state: "generated", emphasis: "quiet" },
+    elements,
+  };
 }
 
 function generateMetricScenario(index: number, random: () => number): ElementDSL {
@@ -158,7 +166,12 @@ function generateMetricScenario(index: number, random: () => number): ElementDSL
     });
   }
 
-  return { version: "3.0", type: "adaptive-card", elements };
+  return {
+    version: "4.0",
+    type: "adaptive-card",
+    context: { domain: "system", state: "generated", emphasis: "high" },
+    elements,
+  };
 }
 
 function generateImageScenario(index: number, random: () => number): ElementDSL {
@@ -197,7 +210,12 @@ function generateImageScenario(index: number, random: () => number): ElementDSL 
       priority: 100,
     });
   }
-  return { version: "3.0", type: "adaptive-card", elements };
+  return {
+    version: "4.0",
+    type: "adaptive-card",
+    context: { domain: "generic", state: "generated", emphasis: "standard" },
+    elements,
+  };
 }
 
 export function runBenchmark(total = 250, seed = 20260826): BenchmarkResult {
@@ -241,6 +259,12 @@ export function runBenchmark(total = 250, seed = 20260826): BenchmarkResult {
   const droppedLayouts = results.filter(
     (result) => result.droppedIds.length > 0,
   ).length;
+  const visualStyles = new Set(
+    results.map((result) => `${result.visual.palette}/${result.visual.surface}`),
+  ).size;
+  const visualContrastPassed = results.filter(
+    (result) => result.quality.checks.find((check) => check.id === "contrast")?.passed,
+  ).length;
 
   return {
     total,
@@ -250,6 +274,12 @@ export function runBenchmark(total = 250, seed = 20260826): BenchmarkResult {
       Math.round(
         (results.reduce((sum, result) => sum + result.score, 0) / total) * 10,
       ) / 10,
+    averageVisualScore:
+      Math.round(
+        (results.reduce((sum, result) => sum + result.visual.score, 0) / total) * 10,
+      ) / 10,
+    visualContrastPassRate: Math.round((visualContrastPassed / total) * 1000) / 10,
+    visualStyles,
     averageCandidates:
       Math.round(
         (results.reduce((sum, result) => sum + result.candidateCount, 0) /

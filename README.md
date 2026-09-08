@@ -1,5 +1,37 @@
 # 2x2 Card DSL Lab
 
+项目从 V0.1 到 V0.8 的完整功能演进、对话决策和当前架构，请参阅
+[PROJECT_EVOLUTION_V0.1_V0.8.md](./PROJECT_EVOLUTION_V0.1_V0.8.md)。
+
+## Qwen3-8B 语义编译实验
+
+当前交付链路使用 `SemanticDocument 2.0`：模型只提取事实、单位、主次、否定/纠正、动作语义和展示偏好；`ux-component-v0.1` 规则层只接收该结构与宿主 `context`，不读取原始自然语言。API 返回 `ready`、`needs_clarification`、`unsupported` 或 `no_card`；只有通过 DSL 与布局交付门禁的 `ready` 才包含 DSL。动作事件、应用身份和图片资源只接受宿主验证上下文，不由模型补造。
+
+22 个规范案例可独立验证：
+
+```powershell
+npm run test:decision
+```
+
+实验计划见 [experiments/PLAN.md](./experiments/PLAN.md)，真实批量结果与限制见
+[experiments/REPORT.md](./experiments/REPORT.md)。当前已接入阿里云专属 OpenAI 兼容端点，
+通过服务端 `.env.local` 中的 `SEMANTIC_MODEL_PROVIDER=aliyun` 和 `ALIYUN_MAAS_*` 配置启用；
+字段模板见 `.env.example`，不要提交真实密钥。
+
+线上模型路径使用 v2 结构化语义 Schema；失败会明确显示 `LOCAL FALLBACK`。独立评测器保存原始响应且不启用回退。旧 Semantic Plan、v1 评分器和历史结果继续保留用于复核。
+
+v2 评测说明见 [experiments/EVALUATION_V2.md](./experiments/EVALUATION_V2.md)。校准数据不会用于 Qwen 结论；已另行冻结并预检 12 条 `independent-v2.mjs` 新输入。Qwen 运行器强制要求显式数据集和 `independent=true`，避免误跑开发集。
+
+评测脚本要求 Node.js 22.15+，本轮实际使用24.13.0：
+
+```powershell
+npm run test:semantic
+npm run eval:local -- --label local-v2-calibration --concurrency 1
+npm run eval:qwen -- --dataset experiments/independent-v2.mjs --label qwen-independent-v2 --concurrency 2
+```
+
+每次使用新的 `--label`，结果保存到 `experiments/results/<label>/`，已有结果不会被覆盖。
+
 ## Windows 本地演示（推荐）
 
 本方案完全在演示电脑上运行，不依赖 `chatgpt.site`，启动后访问：

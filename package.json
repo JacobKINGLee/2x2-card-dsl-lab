@@ -11,8 +11,13 @@
     "start": "vinext start",
     "demo:local": "vinext start --hostname 127.0.0.1 --port 3000",
     "demo:lan": "vinext start --hostname 0.0.0.0 --port 3000",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs && npm run test:semantic",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "test:semantic": "node --import ./experiments/register-typescript.mjs --test experiments/legacy-scoring.test.mjs experiments/scoring.test.mjs tests/component-decision.test.mjs",
+    "test:decision": "node --import ./experiments/register-typescript.mjs --test tests/component-decision.test.mjs",
+    "eval:qwen": "node --env-file=.env.local --import ./experiments/register-typescript.mjs experiments/run.mjs --provider aliyun",
+    "eval:local": "node --import ./experiments/register-typescript.mjs experiments/run.mjs --provider local",
+    "eval:preflight": "node --import ./experiments/register-typescript.mjs experiments/run.mjs --provider aliyun --dataset experiments/independent-v2.mjs --label qwen-independent-v2 --preflight",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {

@@ -1,0 +1,2050 @@
+{
+  "completedAt": "2026-09-07T02:41:23.002Z",
+  "expected": 132,
+  "completed": 132,
+  "core": {
+    "count": 120,
+    "transport": {
+      "passed": 120,
+      "total": 120
+    },
+    "json": {
+      "passed": 120,
+      "total": 120
+    },
+    "schema": {
+      "passed": 30,
+      "total": 120
+    },
+    "semantic": {
+      "passed": 44,
+      "total": 120
+    },
+    "dsl": {
+      "passed": 120,
+      "total": 120
+    },
+    "engine": {
+      "passed": 120,
+      "total": 120
+    },
+    "joint": {
+      "passed": 13,
+      "total": 120
+    },
+    "normalized": 104,
+    "layoutRepaired": 0,
+    "assertions": {
+      "domain": {
+        "passed": 99,
+        "total": 120
+      },
+      "visualization": {
+        "passed": 88,
+        "total": 120
+      },
+      "value": {
+        "passed": 116,
+        "total": 120
+      },
+      "unit": {
+        "passed": 106,
+        "total": 120
+      },
+      "progressValue": {
+        "passed": 25,
+        "total": 42
+      },
+      "state": {
+        "passed": 0,
+        "total": 27
+      },
+      "emphasis": {
+        "passed": 12,
+        "total": 12
+      },
+      "actionLabel": {
+        "passed": 89,
+        "total": 120
+      }
+    },
+    "latencyMs": {
+      "p50": 2479.201200000003,
+      "p95": 4845.999699999986
+    },
+    "promptTokens": 99475,
+    "completionTokens": 18810
+  },
+  "byDomain": {
+    "energy": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 2,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 0,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 0,
+        "total": 15
+      },
+      "normalized": 15,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 0,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 4,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 8,
+          "total": 12
+        },
+        "state": {
+          "passed": 0,
+          "total": 9
+        },
+        "emphasis": {
+          "passed": 6,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 12,
+          "total": 15
+        }
+      },
+      "latencyMs": {
+        "p50": 2180.9202000000005,
+        "p95": 4710.244299999999
+      },
+      "promptTokens": 12453,
+      "completionTokens": 2282
+    },
+    "weather": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 1,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 2,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 0,
+        "total": 15
+      },
+      "normalized": 14,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 12,
+          "total": 15
+        },
+        "value": {
+          "passed": 12,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "state": {
+          "passed": 0,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 10,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 0,
+          "total": 3
+        },
+        "emphasis": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2449.8256,
+        "p95": 4814.169300000005
+      },
+      "promptTokens": 12437,
+      "completionTokens": 2409
+    },
+    "wellness": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 6,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 6,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 0,
+        "total": 15
+      },
+      "normalized": 12,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 12,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 6,
+          "total": 9
+        },
+        "actionLabel": {
+          "passed": 10,
+          "total": 15
+        },
+        "state": {
+          "passed": 0,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2522.9198000000033,
+        "p95": 4698.449999999997
+      },
+      "promptTokens": 12479,
+      "completionTokens": 2319
+    },
+    "fitness": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 12,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 12,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 9,
+        "total": 15
+      },
+      "normalized": 6,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 14,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "actionLabel": {
+          "passed": 12,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2260.4249000000054,
+        "p95": 4967.229599999999
+      },
+      "promptTokens": 12446,
+      "completionTokens": 2381
+    },
+    "system": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 2,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 5,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 0,
+        "total": 15
+      },
+      "normalized": 15,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 12,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 9,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 15,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 2,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 13,
+          "total": 15
+        }
+      },
+      "latencyMs": {
+        "p50": 2492.2688999999955,
+        "p95": 4894.074800000002
+      },
+      "promptTokens": 12406,
+      "completionTokens": 2277
+    },
+    "productivity": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 4,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 7,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 4,
+        "total": 15
+      },
+      "normalized": 12,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 13,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 14,
+          "total": 15
+        },
+        "value": {
+          "passed": 14,
+          "total": 15
+        },
+        "unit": {
+          "passed": 10,
+          "total": 15
+        },
+        "state": {
+          "passed": 0,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 11,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2317.5437000000093,
+        "p95": 5245.225699999995
+      },
+      "promptTokens": 12419,
+      "completionTokens": 2374
+    },
+    "environment": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 3,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 4,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 0,
+        "total": 15
+      },
+      "normalized": 15,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 15,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 9,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 9,
+          "total": 15
+        },
+        "actionLabel": {
+          "passed": 10,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 0,
+          "total": 3
+        },
+        "state": {
+          "passed": 0,
+          "total": 3
+        },
+        "emphasis": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2867.9055999999982,
+        "p95": 5379.580699999991
+      },
+      "promptTokens": 12443,
+      "completionTokens": 2414
+    },
+    "generic": {
+      "count": 15,
+      "transport": {
+        "passed": 15,
+        "total": 15
+      },
+      "json": {
+        "passed": 15,
+        "total": 15
+      },
+      "schema": {
+        "passed": 0,
+        "total": 15
+      },
+      "semantic": {
+        "passed": 8,
+        "total": 15
+      },
+      "dsl": {
+        "passed": 15,
+        "total": 15
+      },
+      "engine": {
+        "passed": 15,
+        "total": 15
+      },
+      "joint": {
+        "passed": 0,
+        "total": 15
+      },
+      "normalized": 15,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 14,
+          "total": 15
+        },
+        "visualization": {
+          "passed": 14,
+          "total": 15
+        },
+        "value": {
+          "passed": 15,
+          "total": 15
+        },
+        "unit": {
+          "passed": 12,
+          "total": 15
+        },
+        "actionLabel": {
+          "passed": 11,
+          "total": 15
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2709.631800000003,
+        "p95": 5241.064100000018
+      },
+      "promptTokens": 12392,
+      "completionTokens": 2354
+    }
+  },
+  "bySplit": {
+    "development": {
+      "count": 96,
+      "transport": {
+        "passed": 96,
+        "total": 96
+      },
+      "json": {
+        "passed": 96,
+        "total": 96
+      },
+      "schema": {
+        "passed": 26,
+        "total": 96
+      },
+      "semantic": {
+        "passed": 35,
+        "total": 96
+      },
+      "dsl": {
+        "passed": 96,
+        "total": 96
+      },
+      "engine": {
+        "passed": 96,
+        "total": 96
+      },
+      "joint": {
+        "passed": 11,
+        "total": 96
+      },
+      "normalized": 84,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 80,
+          "total": 96
+        },
+        "visualization": {
+          "passed": 68,
+          "total": 96
+        },
+        "value": {
+          "passed": 93,
+          "total": 96
+        },
+        "unit": {
+          "passed": 87,
+          "total": 96
+        },
+        "progressValue": {
+          "passed": 22,
+          "total": 39
+        },
+        "state": {
+          "passed": 0,
+          "total": 18
+        },
+        "emphasis": {
+          "passed": 6,
+          "total": 6
+        },
+        "actionLabel": {
+          "passed": 72,
+          "total": 96
+        }
+      },
+      "latencyMs": {
+        "p50": 2492.2688999999955,
+        "p95": 4967.229599999999
+      },
+      "promptTokens": 79531,
+      "completionTokens": 15014
+    },
+    "holdout": {
+      "count": 24,
+      "transport": {
+        "passed": 24,
+        "total": 24
+      },
+      "json": {
+        "passed": 24,
+        "total": 24
+      },
+      "schema": {
+        "passed": 4,
+        "total": 24
+      },
+      "semantic": {
+        "passed": 9,
+        "total": 24
+      },
+      "dsl": {
+        "passed": 24,
+        "total": 24
+      },
+      "engine": {
+        "passed": 24,
+        "total": 24
+      },
+      "joint": {
+        "passed": 2,
+        "total": 24
+      },
+      "normalized": 20,
+      "layoutRepaired": 0,
+      "assertions": {
+        "domain": {
+          "passed": 19,
+          "total": 24
+        },
+        "visualization": {
+          "passed": 20,
+          "total": 24
+        },
+        "value": {
+          "passed": 23,
+          "total": 24
+        },
+        "unit": {
+          "passed": 19,
+          "total": 24
+        },
+        "actionLabel": {
+          "passed": 17,
+          "total": 24
+        },
+        "state": {
+          "passed": 0,
+          "total": 9
+        },
+        "emphasis": {
+          "passed": 6,
+          "total": 6
+        },
+        "progressValue": {
+          "passed": 3,
+          "total": 3
+        }
+      },
+      "latencyMs": {
+        "p50": 2455.625899999999,
+        "p95": 3249.0742000000027
+      },
+      "promptTokens": 19944,
+      "completionTokens": 3796
+    }
+  },
+  "boundary": [
+    {
+      "id": "boundary-01",
+      "rawPlan": {
+        "domain": "system",
+        "state": "low_battery",
+        "emphasis": "high",
+        "title": "电量提醒",
+        "visualization": "progressRing",
+        "icon": "battery",
+        "value": "18%",
+        "unit": "%",
+        "label": "当前电量",
+        "detail": "手机电量较低，请及时充电",
+        "progressValue": 18,
+        "actionLabel": "",
+        "actionEvent": "",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为系统状态",
+          "电量低于20%属于低电量状态",
+          "使用进度环展示电量",
+          "提示用户及时充电"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionLabel: minLength",
+        "$.actionEvent: pattern"
+      ],
+      "note": "当前协议强制按钮，不能忠实表示无操作需求"
+    },
+    {
+      "id": "boundary-03",
+      "rawPlan": {
+        "domain": "system",
+        "state": "low_battery",
+        "emphasis": "high",
+        "title": "电量不足",
+        "visualization": "miniProgress",
+        "icon": "battery",
+        "value": "20%",
+        "unit": "%",
+        "label": "电池状态",
+        "detail": "当前电量较低，建议充电",
+        "progressValue": 20,
+        "actionLabel": "立即充电",
+        "actionEvent": "charge_now",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为系统状态",
+          "电量低是当前状态",
+          "使用迷你进度条显示百分比",
+          "提示用户立即充电以避免断电"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "note": "不得编造具体电量百分比"
+    },
+    {
+      "id": "boundary-04",
+      "rawPlan": {
+        "domain": "system",
+        "state": "conflict",
+        "emphasis": "high",
+        "title": "电量冲突",
+        "visualization": "progressRing",
+        "icon": "battery",
+        "value": "18%",
+        "unit": "%",
+        "label": "当前显示",
+        "detail": "手机电量显示为18%",
+        "progressValue": 18,
+        "actionLabel": "查看详情",
+        "actionEvent": "check_battery_status",
+        "confidence": 0.9,
+        "rationale": [
+          "领域为系统状态",
+          "存在电量显示不一致",
+          "使用进度环展示数值",
+          "建议用户检查电池状态"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "note": "不得擅自选定确定值"
+    },
+    {
+      "id": "boundary-05",
+      "rawPlan": {
+        "domain": "generic",
+        "state": "创作",
+        "emphasis": "high",
+        "title": "秋之韵",
+        "visualization": "heroMetric",
+        "icon": "sparkles",
+        "value": "诗意",
+        "unit": "首",
+        "label": "创作完成",
+        "detail": "一首关于秋天的诗",
+        "progressValue": 100,
+        "actionLabel": "欣赏诗作",
+        "actionEvent": "view_poem",
+        "confidence": 1,
+        "rationale": [
+          "领域为通用，涉及诗歌创作",
+          "状态为创作完成，体现成果",
+          "使用heroMetric突出诗意价值",
+          "行动标签引导用户欣赏诗作"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "note": "非卡片需求；当前协议没有拒绝状态"
+    },
+    {
+      "id": "boundary-02",
+      "note": "当前语义计划只有一个主指标"
+    },
+    {
+      "id": "boundary-07",
+      "rawPlan": {
+        "domain": "system",
+        "state": "low",
+        "emphasis": "high",
+        "title": "内存占用",
+        "visualization": "progressRing",
+        "icon": "battery",
+        "value": "18%",
+        "unit": "%",
+        "label": "内存使用率",
+        "detail": "当前内存占用较低，建议清理以释放空间",
+        "progressValue": 18,
+        "actionLabel": "清理内存",
+        "actionEvent": "clear_memory",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为系统状态",
+          "内存占用低表示需要清理",
+          "使用进度环展示百分比",
+          "提供清理操作按钮"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "note": "应理解为system内存场景"
+    },
+    {
+      "id": "boundary-06",
+      "rawPlan": {
+        "domain": "system",
+        "state": "low_battery",
+        "emphasis": "high",
+        "title": "电量低",
+        "visualization": "progressRing",
+        "icon": "battery",
+        "value": "18%",
+        "unit": "%",
+        "label": "手机电量",
+        "detail": "当前电量为18%，建议充电",
+        "progressValue": 18,
+        "actionLabel": "立即充电",
+        "actionEvent": "charge_now",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为系统状态",
+          "电量低于20%属于低电量状态",
+          "使用进度环显示电量",
+          "提供充电建议"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "note": "不应出现HTML/CSS或协议外字段"
+    },
+    {
+      "id": "boundary-08",
+      "rawPlan": {
+        "domain": "productivity",
+        "state": "updated",
+        "emphasis": "high",
+        "title": "会议时间更新",
+        "visualization": "heroMetric",
+        "icon": "clock",
+        "value": "16:30",
+        "unit": "时",
+        "label": "新时间",
+        "detail": "原定15:00的会议已调整为16:30",
+        "progressValue": null,
+        "actionLabel": "查看日程",
+        "actionEvent": "view_schedule",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为生产力，涉及时间管理",
+          "状态为已更新，反映时间调整",
+          "使用heroMetric展示新时间，突出重点",
+          "提供查看日程的操作，便于用户进一步处理"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "note": "应提取16:30而不是15:00"
+    },
+    {
+      "id": "boundary-09",
+      "rawPlan": {
+        "domain": "fitness",
+        "state": "completed",
+        "emphasis": "high",
+        "title": "运动目标超额完成",
+        "visualization": "progressRing",
+        "icon": "activity",
+        "value": "120%",
+        "unit": "%",
+        "label": "目标完成度",
+        "detail": "实际超额完成情况",
+        "progressValue": 120,
+        "actionLabel": "查看详情",
+        "actionEvent": "view_details",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为健身，涉及运动目标的完成状态",
+          "状态为已完成，表示目标已达成",
+          "使用进度环展示超额完成比例",
+          "强调高以突出成就"
+        ]
+      },
+      "schemaErrors": [
+        "$.progressValue: anyOf",
+        "$.actionEvent: pattern"
+      ],
+      "note": "进度上限100与显示120%需区分"
+    },
+    {
+      "id": "boundary-10",
+      "rawPlan": {
+        "domain": "generic",
+        "state": "quiet",
+        "emphasis": "high",
+        "title": "照片展示",
+        "visualization": "heroMetric",
+        "icon": "check",
+        "value": "照片",
+        "unit": "",
+        "label": "照片内容",
+        "detail": "显示照片内容",
+        "progressValue": null,
+        "actionLabel": "查看照片",
+        "actionEvent": "viewPhoto",
+        "confidence": 1,
+        "rationale": [
+          "卡片用于展示单张照片",
+          "使用 heroMetric 显示主要信息",
+          "提供查看照片的交互动作",
+          "保持界面简洁和专注"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "完整DSL支持图片，当前语义计划不支持"
+    },
+    {
+      "id": "boundary-11",
+      "rawPlan": {
+        "domain": "system",
+        "state": "battery",
+        "emphasis": "standard",
+        "title": "电池电量",
+        "visualization": "heroMetric",
+        "icon": "battery",
+        "value": "18%",
+        "unit": "%",
+        "label": "当前电量",
+        "detail": "电量为18%，建议连接充电器以避免低电量状态",
+        "progressValue": null,
+        "actionLabel": "查看详情",
+        "actionEvent": "view_battery_details",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为系统，涉及设备状态",
+          "状态为电池电量，显示当前数值",
+          "组件选择heroMetric用于突出显示关键指标",
+          "行动标签引导用户查看详细信息"
+        ]
+      },
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "note": "不能把被否定动作变为按钮"
+    },
+    {
+      "id": "boundary-12",
+      "rawPlan": {
+        "domain": "wellness",
+        "state": "missing",
+        "emphasis": "high",
+        "title": "心率数据缺失",
+        "visualization": "heroMetric",
+        "icon": "check",
+        "value": "N/A",
+        "unit": "次/分钟",
+        "label": "当前心率",
+        "detail": "设备未检测到心率数据",
+        "progressValue": null,
+        "actionLabel": "重新获取",
+        "actionEvent": "refreshHeartRate",
+        "confidence": 0.95,
+        "rationale": [
+          "领域为健康监测",
+          "状态表示数据缺失",
+          "使用 heroMetric 显示缺失状态",
+          "提示用户重新获取数据"
+        ]
+      },
+      "schemaErrors": [],
+      "note": "需要缺失数据表示，不能虚构健康数值"
+    }
+  ],
+  "failures": [
+    {
+      "id": "core-01-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    },
+    {
+      "id": "core-01-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    },
+    {
+      "id": "core-01-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    },
+    {
+      "id": "core-02-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "progressValue",
+        "state"
+      ]
+    },
+    {
+      "id": "core-02-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "progressValue",
+        "state"
+      ]
+    },
+    {
+      "id": "core-02-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "progressValue",
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-03-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization"
+      ]
+    },
+    {
+      "id": "core-03-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-03-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "progressValue",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-04-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    },
+    {
+      "id": "core-04-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    },
+    {
+      "id": "core-04-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "visualization",
+        "state"
+      ]
+    },
+    {
+      "id": "core-05-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-05-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-05-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-06-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "state"
+      ]
+    },
+    {
+      "id": "core-06-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "state"
+      ]
+    },
+    {
+      "id": "core-06-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-07-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "value"
+      ]
+    },
+    {
+      "id": "core-07-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "value"
+      ]
+    },
+    {
+      "id": "core-07-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "value",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-08-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-08-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-09-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-08-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "progressValue",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-09-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-09-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-10-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "state"
+      ]
+    },
+    {
+      "id": "core-10-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "state"
+      ]
+    },
+    {
+      "id": "core-10-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-11-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-11-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-11-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-12-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "state"
+      ]
+    },
+    {
+      "id": "core-12-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "state"
+      ]
+    },
+    {
+      "id": "core-12-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-13-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-13-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-14-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-13-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-14-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-14-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-15-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-15-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-15-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-16-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-17-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-18-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-19-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-19-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-20-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-21-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization"
+      ]
+    },
+    {
+      "id": "core-21-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization"
+      ]
+    },
+    {
+      "id": "core-22-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-21-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-22-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-22-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-23-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-23-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-23-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-24-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-24-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-24-3",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "progressValue",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-25-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-25-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-25-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-26-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit",
+        "state"
+      ]
+    },
+    {
+      "id": "core-26-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit",
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-26-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit",
+        "state"
+      ]
+    },
+    {
+      "id": "core-27-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-27-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-27-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-28-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-28-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-30-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "unit",
+        "state"
+      ]
+    },
+    {
+      "id": "core-30-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "domain",
+        "unit",
+        "state"
+      ]
+    },
+    {
+      "id": "core-31-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-30-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "value",
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-31-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-31-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-32-1",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-32-2",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue"
+      ]
+    },
+    {
+      "id": "core-33-1",
+      "schemaErrors": [
+        "$.detail: maxLength"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-32-3",
+      "schemaErrors": [],
+      "failedAssertions": [
+        "visualization",
+        "progressValue",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-33-2",
+      "schemaErrors": [
+        "$.detail: maxLength",
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-33-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-34-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-34-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-34-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-35-1",
+      "schemaErrors": [
+        "$.progressValue: anyOf",
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "unit",
+        "state"
+      ]
+    },
+    {
+      "id": "core-35-2",
+      "schemaErrors": [
+        "$.progressValue: anyOf",
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "unit",
+        "state"
+      ]
+    },
+    {
+      "id": "core-35-3",
+      "schemaErrors": [
+        "$.progressValue: anyOf",
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "unit",
+        "state",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-36-1",
+      "schemaErrors": [
+        "$.progressValue: required",
+        "$.icon: enum"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-36-2",
+      "schemaErrors": [
+        "$.icon: enum",
+        "$.actionEvent: pattern",
+        "$.rationale: maxItems"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-36-3",
+      "schemaErrors": [
+        "$.icon: enum",
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-37-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-37-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-37-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-38-1",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": [
+        "domain"
+      ]
+    },
+    {
+      "id": "core-38-2",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-39-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-38-3",
+      "schemaErrors": [
+        "$.icon: enum"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-39-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit"
+      ]
+    },
+    {
+      "id": "core-39-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "unit",
+        "actionLabel"
+      ]
+    },
+    {
+      "id": "core-40-2",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-40-1",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": []
+    },
+    {
+      "id": "core-40-3",
+      "schemaErrors": [
+        "$.actionEvent: pattern"
+      ],
+      "failedAssertions": [
+        "visualization",
+        "actionLabel"
+      ]
+    }
+  ]
+}
